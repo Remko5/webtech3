@@ -1,0 +1,20 @@
+div.gameBoard > div {
+    width: 2em;
+    height: 2em;
+    border: 1px;
+    border-style: solid;
+    cursor: pointer;
+    background-color:azure;
+    margin-bottom: 1em;
+    text-align: center;
+    font-size: 20px;
+}
+
+div.gameBoard {
+    display: grid;
+    grid: repeat(6, 15%) / auto-flow 17%;
+    min-width: 100%;
+}
+
+@media (max-width: 1250px) {
+}
