@@ -11,57 +11,57 @@
         <p>verlopen tijd: 5 seconden</p>
         <p>aantal gevonden paren: 4</p>
         <p>resterende tijd:</p>
-        <progress id="file" value="50" max="100"> 32% </progress>
+        <progress id="file" value="50" max="100" aria-label="30 seconden"> 32% </progress>
         <div class="smallNewGame">
             <button type="submit">Nieuw Spel</button>
         </div>
     </div>
     <div class="gameBoardPosition">
-    <div class="gameBoard">
-        <div class="found">M</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div class="found">M</div>
+    <div class="gameBoard" role="Spelbord" aria-label="Spelbord">
+        <div id="card1" class="found" aria-live="assertive" aria-label="Gevonden kaart met letter M">M</div>
+        <div id="card2" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card3" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card4" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card5" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card6" class="found" aria-live="assertive" aria-label="Gevonden kaart met letter M">M</div>
 
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
+        <div id="card7" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card8" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card9" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card10" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card11" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card12" aria-live="assertive" aria-label="Gesloten kaart">+</div>
 
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
+        <div id="card13" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card14" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card15" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card16" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card17" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card18" aria-live="assertive" aria-label="Gesloten kaart">+</div>
 
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div class="open">Q</div>
-        <div>+</div>
-        <div>+</div>
+        <div id="card19" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card20" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card21" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card22" class="open" aria-live="assertive" aria-label="Open kaart met letter Q">Q</div>
+        <div id="card23" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card24" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        
+        <div id="card25" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card26" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card27" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card28" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card29" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card30" aria-live="assertive" aria-label="Gesloten kaart">+</div>
 
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
-        <div>+</div>
+        <div id="card31" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card32" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card33" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card34" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card35" aria-live="assertive" aria-label="Gesloten kaart">+</div>
+        <div id="card36" aria-live="assertive" aria-label="Gesloten kaart">+</div>
     </div>
 </div>
-    <div class="extraInfo">
+    <div class="extraInfo" role="extra info sectie" aria-label="extra info sectie">
         <b>Top vijf</b>
         <ol>
             <li>
@@ -97,15 +97,15 @@
                 <option value="2">2</option>                
               </select>
         </div>
-        <div>
+        <div class="color-inline">
             <label for="standard">Kaart kleur</label>
             <input type="color" id="standard" name="standard" value="#89f357">
         </div>
-        <div>
+        <div class="color-inline">
             <label for="open">Open</label>
             <input type="color" id="open" name="open" value="#438400">
         </div>
-        <div>
+        <div class="color-inline">
             <label for="found">Gevonden</label>
             <input type="color" id="found" name="found" value="#722c80">
         </div>

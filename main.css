@@ -41,6 +41,17 @@ div.extraInfo > div {
     padding-bottom: 1em;
 }
 
+div.color-inline {
+    display: flex;
+}
+
+div.color-inline > label, div.color-inline > input {
+    margin-right: 5px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+}
+
 @media (min-width: 481px){
     div.gameBoard > div {
         font-size: 31px;
