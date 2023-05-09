@@ -48,6 +48,7 @@ div.color-inline {
 div.color-inline > label, div.color-inline > input {
     margin-right: 5px;
     height: 27px;
+    width: 9em; 
     display: flex;
     align-items: center;
 }
