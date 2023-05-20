@@ -1,5 +1,18 @@
+:root {
+    --standard: #89f357;
+    --open: #438400;
+    --found: #722c80;
+  }
+
 div.smallNewGame {
+    height: 3em;
     margin: 1em;
+}
+
+div.smallNewGame > div, button {
+    float: left;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
 }
 
 div.bigNewGame {
@@ -16,25 +29,36 @@ div.gameBoard > div {
     border: 1px;
     border-style: solid;
     cursor: pointer;
-    background-color:#89f357;
+    background-color: var(--standard);
     margin-bottom: 1em;
     text-align: center;
     font-size: 23px;
 }
 
 div.gameBoard > div.open {
-    background-color:#438400;
+    background-color: var(--open);
 }
 
 div.gameBoard > div.found {
-    background-color:#722c80;
+    background-color: var(--found);
 }
 
 div.gameBoard {
     display: grid;
-    grid: repeat(6, 15%) / auto-flow 17%;
     min-width: 100%;
     max-width: 100%;
+}
+
+div.gameBoardSize6 {
+    grid: repeat(6, 15%) / auto-flow 17%;
+}
+
+div.gameBoardSize4 {
+    grid: repeat(4, 18%) / auto-flow 17%;
+}
+
+div.gameBoardSize2 {
+    grid: repeat(2, 41%) / auto-flow 17%;
 }
 
 div.extraInfo > div {
@@ -54,13 +78,12 @@ div.color-inline > label, div.color-inline > input {
 }
 
 @media (min-width: 481px){
-    div.gameBoard > div {
-        font-size: 31px;
+    div.smallNewGame {
+        height: 1em;
     }
 
-    div.gameBoardPosition {
-        height: 31.6em;
-        overflow: hidden;
+    div.gameBoard > div {
+        font-size: 31px;
     }
 }
 
@@ -73,6 +96,12 @@ div.color-inline > label, div.color-inline > input {
         padding: 0px;
     }
 
+    div.smallNewGame > div, button {
+        float: none;
+        margin-bottom: 0px;
+        margin-right: 0px;
+    }
+
     div.bigNewGame {
         visibility: initial;
         max-width: initial;
@@ -81,8 +110,16 @@ div.color-inline > label, div.color-inline > input {
         padding: initial;
     }
 
-    div.gameBoard {
+    div.gameBoardSize6 {
         grid: repeat(6, 12%) / auto-flow 17%;
+    }
+
+    div.gameBoardSize4 {
+        grid: repeat(4, 19%) / auto-flow 17%;
+    }
+
+    div.gameBoardSize2 {
+        grid: repeat(2, 38%) / auto-flow 17%;
     }
 
     div.gameBoard > div {
@@ -98,12 +135,21 @@ div.color-inline > label, div.color-inline > input {
         max-width: 75%;
         height: 34.6em;
         float: left;
+        overflow: hidden;
     }
 }
 
 @media (min-width: 1025px) {
-    div.gameBoard {
+    div.gameBoardSize6 {
         grid: repeat(6, 12%) / auto-flow 16%;
+    }
+
+    div.gameBoardSize4 {
+        grid: repeat(4, 19%) / auto-flow 16%;
+    }
+
+    div.gameBoardSize2 {
+        grid: repeat(2, 38%) / auto-flow 16%;
     }
 
     div.gameBoard > div {

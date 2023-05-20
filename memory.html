@@ -11,55 +11,29 @@
         <p>verlopen tijd: 5 seconden</p>
         <p>aantal gevonden paren: 4</p>
         <p>resterende tijd:</p>
-        <progress id="file" value="50" max="100" aria-label="30 seconden"> 32% </progress>
+        <progress id="gameTimer" value="50" max="100" aria-label="30 seconden"> 32% </progress>
         <div class="smallNewGame">
             <button type="submit">Nieuw Spel</button>
+            <div>
+                <label for="karakter"><b>Karakter op kaarten: </b></label>
+                <select name="karakter" id="karakterSmallScreen">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                  </select>
+            </div>
+            <div>
+                <label for="bordGrote"><b>Afmeting bord: </b></label>
+                <select name="bordGrote" id="bordGroteSmallScreen">
+                    <option value="6">6</option>
+                    <option value="4">4</option>
+                    <option value="2">2</option>                
+                  </select>
+            </div>
         </div>
     </div>
     <div class="gameBoardPosition">
-    <div class="gameBoard" role="Spelbord" aria-label="Spelbord">
-        <div id="card1" class="found" aria-live="assertive" aria-label="Gevonden kaart met letter M">M</div>
-        <div id="card2" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card3" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card4" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card5" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card6" class="found" aria-live="assertive" aria-label="Gevonden kaart met letter M">M</div>
-
-        <div id="card7" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card8" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card9" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card10" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card11" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card12" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-
-        <div id="card13" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card14" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card15" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card16" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card17" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card18" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-
-        <div id="card19" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card20" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card21" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card22" class="open" aria-live="assertive" aria-label="Open kaart met letter Q">Q</div>
-        <div id="card23" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card24" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        
-        <div id="card25" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card26" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card27" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card28" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card29" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card30" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-
-        <div id="card31" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card32" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card33" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card34" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card35" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-        <div id="card36" aria-live="assertive" aria-label="Gesloten kaart">+</div>
-    </div>
+    <div class="gameBoard" role="Spelbord" aria-label="Spelbord"></div>
 </div>
     <div class="extraInfo" role="extra info sectie" aria-label="extra info sectie">
         <b>Top vijf</b>
@@ -81,17 +55,17 @@
             </li>
         </ol>
         <div><b>Gemiddelde speeltijd: </b>0s (64s)</div>
-        <div>
+        <div class="bigNewGame">
             <label for="karakter"><b>Karakter op kaarten: </b></label>
-            <select name="karakter" id="karakter">
+            <select name="karakter" id="karakterLargeScreen">
                 <option value="+">+</option>
                 <option value="-">-</option>
                 <option value="*">*</option>
               </select>
         </div>
-        <div>
+        <div class="bigNewGame">
             <label for="bordGrote"><b>Afmeting bord: </b></label>
-            <select name="bordGrote" id="bordGrote">
+            <select name="bordGrote" id="bordGroteLargeScreen">
                 <option value="6">6</option>
                 <option value="4">4</option>
                 <option value="2">2</option>                
@@ -99,19 +73,20 @@
         </div>
         <div class="color-inline">
             <label for="standard">Kaart kleur</label>
-            <input type="color" id="standard" name="standard" value="#89f357">
+            <input type="color" id="standardCardColor" name="standard" value="#89f357">
         </div>
         <div class="color-inline">
             <label for="open">Open kaart kleur</label>
-            <input type="color" id="open" name="open" value="#438400">
+            <input type="color" id="openCardColor" name="open" value="#438400">
         </div>
         <div class="color-inline">
             <label for="found">Gevonden kaart kleur</label>
-            <input type="color" id="found" name="found" value="#722c80">
+            <input type="color" id="foundCardColor" name="found" value="#722c80">
         </div>
         <div class="bigNewGame">
             <button type="submit">Nieuw Spel</button>
         </div>
     </div>
 </body>
+<script src="index.js" ></script>
 </html>
