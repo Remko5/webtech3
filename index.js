@@ -1,6 +1,7 @@
-let letterArray = letters();
-let previousOpenCard = "number:letter";
-let currentOpenCard = "number:letter";
+let openCardSymbols = letters();
+let previousOpenCard = "number::letter";
+let currentOpenCard = "number::letter";
+let useImages = false;
 
 function letters() {
     let size = document.querySelector("select#bordGroteSmallScreen").value;
@@ -23,9 +24,8 @@ function shuffle(letters) {
 
 function generateHtmlCards(size) {
     let array = [];
-    let cards = document.querySelectorAll('div#card');
     for (let i = 0; i < size*size; i++) {
-        let div = document.createElement('div'); //'<div aria-live="assertive" aria-label="Gesloten kaart">+</div>';
+        let div = document.createElement('div');
         div.ariaLive = "assertive";
         div.ariaLabel = "gesloten kaart";
         div.id = "card" + i;
@@ -38,14 +38,14 @@ function generateHtmlCards(size) {
 
 function showCard(number) {
     let card = document.querySelector("div#card" + number);
-    let openCardNumber = currentOpenCard.split(":")[0];
-    
+    let openCardNumber = currentOpenCard.split("::")[0];
+
     // mag deze kaart niet klikken
     if(card.classList.contains("open") || card.classList.contains("found") || openCardNumber == number){
         return;
     }
-    let openCardLetter = currentOpenCard.split(":")[1];
-    let letter = letterArray[number];
+    let openCardLetter = currentOpenCard.split("::")[1];
+    let letter = openCardSymbols[number];
     
     // nieuwe kaart openen
     if(card.classList.length == 0){
@@ -63,7 +63,7 @@ function showCard(number) {
     }
     // hou current en previous open kaart bij
     previousOpenCard = currentOpenCard;
-    currentOpenCard = number + ":" + letter;
+    currentOpenCard = number + "::" + letter;
     
     // paar gevonden
     if(openCardLetter == letter && openCardElement.classList.contains("open")){
@@ -76,7 +76,15 @@ function showCard(number) {
 
 function openCard(card, letter){
     card.classList.add("open");
-    card.innerHTML = letter;
+    if(useImages){
+        card.innerHTML = '';
+        let img = document.createElement('img');
+        img.src = letter;
+        img.alt = card.id
+        card.appendChild(img);
+    } else{
+        card.innerHTML = letter;
+    }
 }
 
 function closeCards(openCardElement, previousOpenCardElement) {
@@ -104,8 +112,8 @@ function allPairFound() {
 }
 
 function showWinMessage() {
-    let parent = document.querySelector("div.gameBoardPosition");
-    parent.innerHTML = '<h1 id="winMessage">Je hebt gewonnen!</h1>' + parent.innerHTML;
+    let winMessage = document.querySelector("div#winMessage");
+    winMessage.innerHTML += '<h1 id="winMessage">Je hebt gewonnen!</h1>';
 }
 
 function removeWinMessage() {
@@ -116,27 +124,25 @@ function removeWinMessage() {
 }
 
 function generateBoard(size) {
-    //let size = 4;
     let gameboard = document.querySelector("div.gameBoard");
     gameboard.textContent = "";
     gameboard = addGridBoardCss(gameboard, size);
     let cards = generateHtmlCards(size);
-    letterArray = letters();
     addBoard(cards, gameboard);
     removeWinMessage();
-    // voor testen
-    //addVisibleBoard(cards, gameboard);
 }
 
-function generateBoardSmallScreen() {
-    let size = document.querySelector("select#bordGroteSmallScreen").value;
+function generateBoardSmallScreen(e) {
+    let size = e.target.value
     document.querySelector("select#bordGroteLargeScreen").value = size;
+    changeOpenCardSymbols({target: document.querySelector("select#cardPicture")});
     generateBoard(size);
 }
 
-function generateBoardLargeScreen() {
-    let size = document.querySelector("select#bordGroteLargeScreen").value;
+function generateBoardLargeScreen(e) {
+    let size = e.target.value;
     document.querySelector("select#bordGroteSmallScreen").value = size;
+    changeOpenCardSymbols({target: document.querySelector("select#cardPicture")});
     generateBoard(size);
 }
 
@@ -155,15 +161,6 @@ function addBoard(cards, gameboard) {
     });
 }
 
-function addVisibleBoard(cards, gameBoard) {
-    let count = 0;
-    cards.forEach(card => {
-        card.innerHTML = letterArray[count];
-        gameboard.appendChild(card);
-        count++;
-    });
-}
-
 function changeCharacter(character) {
     let gameboard = document.querySelector("div.gameBoard");
     let cards = gameboard.childNodes;
@@ -174,34 +171,86 @@ function changeCharacter(character) {
     })
 }
 
-function changeCharacterSmallScreen() {
-    let character = document.querySelector("select#karakterSmallScreen").value;
+function changeCharacterSmallScreen(e) {
+    let character = e.target.value;
     document.querySelector("select#karakterLargeScreen").value = character;
     changeCharacter(character);
 }
 
-function changeCharacterLargeScreen() {
-    let character = document.querySelector("select#karakterLargeScreen").value;
+function changeCharacterLargeScreen(e) {
+    let character = e.target.value;
     document.querySelector("select#karakterSmallScreen").value = character;
     changeCharacter(character);
 }
 
-function changeStandardCardColor() {
-    let color = document.querySelector("input#standardCardColor");
+function changeStandardCardColor(e) {
+    let color = e.target.value
     let colors = document.querySelector(":root");
-    colors.style.setProperty('--standard', color.value);
+    colors.style.setProperty('--standard', color);
 }
 
-function changeOpenCardColor() {
-    let color = document.querySelector("input#openCardColor");
+function changeOpenCardColor(e) {
+    let color = e.target.value;
     let colors = document.querySelector(":root");
-    colors.style.setProperty('--open', color.value);
+    colors.style.setProperty('--open', color);
 }
 
-function changeFoundCardColor() {
-    let color = document.querySelector("input#foundCardColor");
+function changeFoundCardColor(e) {
+    let color = e.target.value;
     let colors = document.querySelector(":root");
-    colors.style.setProperty('--found', color.value);
+    colors.style.setProperty('--found', color);
+}
+
+function changeOpenCardSymbols(e) {
+    let picture = e.target.value;
+    let boardSize = document.querySelector("select#bordGroteSmallScreen").value;
+    if(picture == 'letter'){
+        useImages = false;
+        openCardSymbols = letters();
+        generateBoard(boardSize);
+        return;
+    }
+
+    let apiUrls = {dog: 'https://dog.ceo/api/breeds/image/random', lorem: 'https://picsum.photos/200/300'}
+    arraySize = (boardSize * boardSize / 2);
+    let apiCalls = [];
+    for (let i = 0; i < arraySize; i++) {
+        apiCalls.push(fetch(apiUrls[picture]));
+    }
+
+    switch (picture) {
+        case "dog":
+            useImages = true;
+            dogImages(apiCalls);
+            break;
+        case "lorem":
+            useImages = true;
+            loremImages(apiCalls);
+            break;
+        default:
+            break;
+    }
+    generateBoard(boardSize);
+}
+
+function dogImages(apiCalls) {
+    Promise.all(apiCalls)
+    .then(res => Promise.all(res.map( r => r.json())))
+    .then(json => json.map(j => j.message))
+    .then(urls => {
+        urls = urls.concat(urls);
+        openCardSymbols = urls;
+    });
+    
+}
+
+function loremImages(apiCalls) {
+    Promise.all(apiCalls)
+    .then(res => res.map(r => r.url))
+    .then(urls =>{
+        urls = urls.concat(urls);
+        openCardSymbols = urls;
+    });
 }
 
 generateBoard(6);
@@ -212,3 +261,4 @@ document.querySelector("select#bordGroteLargeScreen").addEventListener('change',
 document.querySelector("input#standardCardColor").addEventListener('change', changeStandardCardColor);
 document.querySelector("input#openCardColor").addEventListener('change', changeOpenCardColor);
 document.querySelector("input#foundCardColor").addEventListener('change', changeFoundCardColor);
+document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbols);

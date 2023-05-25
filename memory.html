@@ -6,35 +6,38 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div>
-        <h2>Javascript memory</h2>
-        <p>verlopen tijd: 5 seconden</p>
-        <p>aantal gevonden paren: 4</p>
-        <p>resterende tijd:</p>
-        <progress id="gameTimer" value="50" max="100" aria-label="30 seconden"> 32% </progress>
-        <div class="smallNewGame">
-            <button type="submit">Nieuw Spel</button>
-            <div>
-                <label for="karakter"><b>Karakter op kaarten: </b></label>
-                <select name="karakter" id="karakterSmallScreen">
-                    <option value="+">+</option>
-                    <option value="-">-</option>
-                    <option value="*">*</option>
-                  </select>
-            </div>
-            <div>
-                <label for="bordGrote"><b>Afmeting bord: </b></label>
-                <select name="bordGrote" id="bordGroteSmallScreen">
-                    <option value="6">6</option>
-                    <option value="4">4</option>
-                    <option value="2">2</option>                
-                  </select>
+    <div class="topInfo">
+        <div>
+            <h2>Javascript memory</h2>
+            <p>verlopen tijd: 5 seconden</p>
+            <p>aantal gevonden paren: 4</p>
+            <p>resterende tijd:</p>
+            <progress id="gameTimer" value="50" max="100" aria-label="30 seconden"> 32% </progress>
+            <div class="smallNewGame">
+                <button type="submit">Nieuw Spel</button>
+                <div>
+                    <label for="karakter"><b>Karakter op kaarten: </b></label>
+                    <select name="karakter" id="karakterSmallScreen">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="bordGrote"><b>Afmeting bord: </b></label>
+                    <select name="bordGrote" id="bordGroteSmallScreen">
+                        <option value="6">6</option>
+                        <option value="4">4</option>
+                        <option value="2">2</option>                
+                      </select>
+                </div>
             </div>
         </div>
+        <div id="winMessage"></div>
     </div>
     <div class="gameBoardPosition">
-    <div class="gameBoard" role="Spelbord" aria-label="Spelbord"></div>
-</div>
+        <div class="gameBoard" role="Spelbord" aria-label="Spelbord"></div>
+    </div>
     <div class="extraInfo" role="extra info sectie" aria-label="extra info sectie">
         <b>Top vijf</b>
         <ol>
@@ -82,6 +85,14 @@
         <div class="color-inline">
             <label for="found">Gevonden kaart kleur</label>
             <input type="color" id="foundCardColor" name="found" value="#722c80">
+        </div>
+        <div>
+            <label for="kaart afbeelding"><h2>Afbeelding op kaarten:</h2></label>
+            <select name="kaart afbeelding" id="cardPicture">
+                <option value="letter">Letters</option>
+                <option value="dog">Honden</option>
+                <option value="lorem">Lorem Picsum</option>
+              </select>
         </div>
         <div class="bigNewGame">
             <button type="submit">Nieuw Spel</button>
