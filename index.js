@@ -133,23 +133,19 @@ function generateBoard(size) {
 }
 
 function generateBoardSmallScreen(e) {
-    let size = e.target.value
+    let size = e.target.value;
     document.querySelector("select#bordGroteLargeScreen").value = size;
-    changeOpenCardSymbols({target: document.querySelector("select#cardPicture")});
-    generateBoard(size);
+    changeOpenCardSymbolsAndResetBoard({target: document.querySelector("select#cardPicture")});
 }
 
 function generateBoardLargeScreen(e) {
     let size = e.target.value;
     document.querySelector("select#bordGroteSmallScreen").value = size;
-    changeOpenCardSymbols({target: document.querySelector("select#cardPicture")});
-    generateBoard(size);
+    changeOpenCardSymbolsAndResetBoard({target: document.querySelector("select#cardPicture")});
 }
 
 function startNewGame() {
-    let size = document.querySelector("select#bordGroteSmallScreen").value;
-    changeOpenCardSymbols({target: document.querySelector("select#cardPicture")});
-    generateBoard(size);
+    changeOpenCardSymbolsAndResetBoard({target: document.querySelector("select#cardPicture")});
 }
 
 function addGridBoardCss(gameboard, size) {
@@ -207,7 +203,7 @@ function changeFoundCardColor(e) {
     colors.style.setProperty('--found', color);
 }
 
-function changeOpenCardSymbols(e) {
+async function changeOpenCardSymbolsAndResetBoard(e) {
     let picture = e.target.value;
     let boardSize = document.querySelector("select#bordGroteSmallScreen").value;
     if(picture == 'letter'){
@@ -221,7 +217,7 @@ function changeOpenCardSymbols(e) {
     arraySize = (boardSize * boardSize / 2);
     let apiCalls = [];
     for (let i = 0; i < arraySize; i++) {
-        apiCalls.push(fetch(apiUrls[picture]));
+        apiCalls.push(await fetch(apiUrls[picture]));
     }
 
     switch (picture) {
@@ -267,6 +263,6 @@ document.querySelector("select#bordGroteLargeScreen").addEventListener('change',
 document.querySelector("input#standardCardColor").addEventListener('change', changeStandardCardColor);
 document.querySelector("input#openCardColor").addEventListener('change', changeOpenCardColor);
 document.querySelector("input#foundCardColor").addEventListener('change', changeFoundCardColor);
-document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbols);
+document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbolsAndResetBoard);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
