@@ -2,6 +2,7 @@ let openCardSymbols = letters();
 let previousOpenCard = "number::letter";
 let currentOpenCard = "number::letter";
 let useImages = false;
+let foundpairs = 0;
 
 function letters() {
     let size = document.querySelector("select#bordGroteSmallScreen").value;
@@ -99,6 +100,8 @@ function foundPair(card, openCardElement){
     card.classList.add("found");
     openCardElement.classList.remove("open");
     openCardElement.classList.add("found");
+    foundpairs++;
+    document.querySelector("span#foundPairs").innerHTML = foundpairs;
 }
 
 function allPairFound() {
@@ -124,6 +127,8 @@ function removeWinMessage() {
 }
 
 function generateBoard(size) {
+    foundpairs = 0;
+    document.querySelector("span#foundPairs").innerHTML = foundpairs;
     let gameboard = document.querySelector("div.gameBoard");
     gameboard.textContent = "";
     gameboard = addGridBoardCss(gameboard, size);
@@ -235,8 +240,8 @@ async function changeOpenCardSymbolsAndResetBoard(e) {
     generateBoard(boardSize);
 }
 
-function dogImages(apiCalls) {
-    Promise.all(apiCalls)
+async function dogImages(apiCalls) {
+    await Promise.all(apiCalls)
     .then(res => Promise.all(res.map( r => r.json())))
     .then(json => json.map(j => j.message))
     .then(urls => {
@@ -246,8 +251,8 @@ function dogImages(apiCalls) {
     
 }
 
-function loremImages(apiCalls) {
-    Promise.all(apiCalls)
+async function loremImages(apiCalls) {
+    await Promise.all(apiCalls)
     .then(res => res.map(r => r.url))
     .then(urls =>{
         urls = urls.concat(urls);
