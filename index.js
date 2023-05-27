@@ -146,6 +146,12 @@ function generateBoardLargeScreen(e) {
     generateBoard(size);
 }
 
+function startNewGame() {
+    let size = document.querySelector("select#bordGroteSmallScreen").value;
+    changeOpenCardSymbols({target: document.querySelector("select#cardPicture")});
+    generateBoard(size);
+}
+
 function addGridBoardCss(gameboard, size) {
     if(gameboard.classList.length == 1){
         gameboard.classList.add("gameBoardSize" + size)
@@ -262,3 +268,5 @@ document.querySelector("input#standardCardColor").addEventListener('change', cha
 document.querySelector("input#openCardColor").addEventListener('change', changeOpenCardColor);
 document.querySelector("input#foundCardColor").addEventListener('change', changeFoundCardColor);
 document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbols);
+document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
+document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);

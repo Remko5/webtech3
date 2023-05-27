@@ -15,7 +15,7 @@ div.smallNewGame > div, button {
     margin-right: 0.5em;
 }
 
-div.bigNewGame {
+div.largeNewGame {
     visibility: hidden;
     max-width: 0px;
     max-height: 0px;
@@ -114,7 +114,7 @@ div.gameBoard > div > img {
         margin-right: 0px;
     }
 
-    div.bigNewGame {
+    div.largeNewGame {
         visibility: initial;
         max-width: initial;
         max-height: initial;

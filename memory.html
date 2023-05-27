@@ -14,7 +14,7 @@
             <p>resterende tijd:</p>
             <progress id="gameTimer" value="50" max="100" aria-label="30 seconden"> 32% </progress>
             <div class="smallNewGame">
-                <button type="submit">Nieuw Spel</button>
+                <button type="submit" id="smallStartNewGame">Nieuw Spel</button>
                 <div>
                     <label for="karakter"><b>Karakter op kaarten: </b></label>
                     <select name="karakter" id="karakterSmallScreen">
@@ -58,7 +58,7 @@
             </li>
         </ol>
         <div><b>Gemiddelde speeltijd: </b>0s (64s)</div>
-        <div class="bigNewGame">
+        <div class="largeNewGame">
             <label for="karakter"><b>Karakter op kaarten: </b></label>
             <select name="karakter" id="karakterLargeScreen">
                 <option value="+">+</option>
@@ -66,7 +66,7 @@
                 <option value="*">*</option>
               </select>
         </div>
-        <div class="bigNewGame">
+        <div class="largeNewGame">
             <label for="bordGrote"><b>Afmeting bord: </b></label>
             <select name="bordGrote" id="bordGroteLargeScreen">
                 <option value="6">6</option>
@@ -94,8 +94,8 @@
                 <option value="lorem">Lorem Picsum</option>
               </select>
         </div>
-        <div class="bigNewGame">
-            <button type="submit">Nieuw Spel</button>
+        <div class="largeNewGame">
+            <button type="submit" id="largeStartNewGame">Nieuw Spel</button>
         </div>
     </div>
 </body>
