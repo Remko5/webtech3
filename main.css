@@ -4,6 +4,10 @@
     --found: #722c80;
   }
 
+#login {
+    display: none;
+}
+
 div.smallNewGame {
     height: 3em;
     margin: 1em;

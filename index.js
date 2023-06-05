@@ -271,3 +271,8 @@ document.querySelector("input#foundCardColor").addEventListener('change', change
 document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbolsAndResetBoard);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
+
+//If user is not logged in, show login button
+if(!localStorage.getItem('token')) {
+    document.querySelector('#login').style.display = 'block'
+}

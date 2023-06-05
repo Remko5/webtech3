@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Vul hier uw gegevens in</h2>
+
+<form id="form" method="post">
+    <div class="container">
+        <label for="username"><b>Gebruikersnaam:</b></label>
+        <input type="text" placeholder="Gebruikersnaam" name="username" required id="username">
+
+        <label for="password"><b>Wachtwoord:</b></label>
+        <input type="password" placeholder="Wachtwoord" name="password" required id="password">
+
+        <button type="button" id="submit">Inloggen</button>
+    </div>
+</form>
+<script>
+    function login() {
+        const body = new FormData(document.querySelector('form'));
+        const plainFormData = Object.fromEntries(body.entries());
+        let works = JSON.stringify(plainFormData); //
+        fetch('http://localhost:8000/api/login_check', {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: works
+        })
+            .then(res => res.json())
+            .then(json => {
+                localStorage.setItem('token', json.token);
+                window.location.href = '/memory.html';
+                console.log('ingelogd!');
+            });
+
+    }
+
+    document.getElementById('submit').addEventListener('click', evt => {
+        evt.preventDefault();
+        login();
+    });
+</script>
+</body>
+</html>
