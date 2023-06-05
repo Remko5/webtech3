@@ -260,6 +260,14 @@ async function loremImages(apiCalls) {
     });
 }
 
+/*
+    Log out by removing the JWT token from storage
+ */
+function logout() {
+    localStorage.removeItem('token');
+    location.reload();
+}
+
 generateBoard(6);
 document.querySelector("select#karakterSmallScreen").addEventListener('change', changeCharacterSmallScreen);
 document.querySelector("select#karakterLargeScreen").addEventListener('change', changeCharacterLargeScreen);
@@ -269,10 +277,14 @@ document.querySelector("input#standardCardColor").addEventListener('change', cha
 document.querySelector("input#openCardColor").addEventListener('change', changeOpenCardColor);
 document.querySelector("input#foundCardColor").addEventListener('change', changeFoundCardColor);
 document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbolsAndResetBoard);
+document.querySelector('button#logout').addEventListener('click', logout);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
-document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
 
+document.querySelector('#logout').style.display = 'none';
 //If user is not logged in, show login button
 if(!localStorage.getItem('token')) {
-    document.querySelector('#login').style.display = 'block'
+    document.querySelector('#loginAndRegister').style.display = 'block';
+    document.querySelector('#logout').style.display = 'none';
+} else {
+    document.querySelector('#logout').style.display = 'block';
 }

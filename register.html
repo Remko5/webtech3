@@ -2,9 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="login.css">
+    <title>Registreren</title>
 </head>
 <body>
+<h2>Registreren</h2>
 
+<form id="form" method="post">
+    <div class="container">
+        <label for="username"><b>Gebruikersnaam:</b></label>
+        <input type="text" placeholder="Gebruikersnaam" name="username" required id="username">
+
+        <label for="email"><b>E-mailadres:</b></label>
+        <input type="email" placeholder="E-mailadres" name="email" required id="email">
+
+        <label for="password"><b>Wachtwoord:</b></label>
+        <input type="password" placeholder="Wachtwoord" name="password" required id="password">
+
+        <button type="button" id="submit">Registreren</button>
+    </div>
+</form>
+<p id="invalidCredentials">Ongeldige gebruikersnaam, e-mailadres of wachtwoord.</p>
+<script>
+    //Get inputs from the DOM
+    function register() {
+
+        //Validate input before POSTing
+        if(document.querySelector('form').checkValidity()) {
+            document.querySelector('#invalidCredentials').style.display = 'none';
+            const body = new FormData(document.querySelector('form'));
+            const plainFormData = Object.fromEntries(body.entries());
+            let works = JSON.stringify(plainFormData);
+
+            fetch('http://localhost:8000/register', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'same-origin',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: works
+            })
+                .then(() => window.location.href = '/login.html')
+
+        } else {
+            document.querySelector('#invalidCredentials').style.display = 'block';
+        }
+
+
+
+
+    }
+
+    document.getElementById('submit').addEventListener('click', evt => {
+        evt.preventDefault();
+        register();
+    });
+</script>
 </body>
 </html>

@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="login.css">
+    <title>Inloggen</title>
 </head>
 <body>
-<h2>Vul hier uw gegevens in</h2>
+<h2>Inloggen</h2>
 
 <form id="form" method="post">
     <div class="container">
@@ -18,12 +19,13 @@
         <button type="button" id="submit">Inloggen</button>
     </div>
 </form>
+<p id="invalidCredentials">Onjuiste inloggegevens</p>
 <script>
-    function login() {
+    async function login() {
         const body = new FormData(document.querySelector('form'));
         const plainFormData = Object.fromEntries(body.entries());
         let works = JSON.stringify(plainFormData); //
-        fetch('http://localhost:8000/api/login_check', {
+        let res = await fetch('http://localhost:8000/api/login_check', {
             method: 'POST',
             mode: 'cors',
             credentials: 'same-origin',
@@ -32,12 +34,22 @@
             },
             body: works
         })
-            .then(res => res.json())
-            .then(json => {
-                localStorage.setItem('token', json.token);
-                window.location.href = '/memory.html';
-                console.log('ingelogd!');
-            });
+
+        if(res.status === 401) {
+            //Show invalid credentials message if the repsonse status is 401
+            document.querySelector('#invalidCredentials').style.display = 'block'
+        } else {
+            //Hide the invalid credentials message if it's show
+            document.querySelector('#invalidCredentials').style.display = 'none'
+
+            //Store JWT token in localStorage
+            let json = await res.json()
+            localStorage.setItem('token', json.token)
+
+            //redirect to the memory homepage
+            window.location.href = '/memory.html';
+
+        }
 
     }
 
