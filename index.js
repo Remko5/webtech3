@@ -277,15 +277,20 @@ document.querySelector("input#standardCardColor").addEventListener('change', cha
 document.querySelector("input#openCardColor").addEventListener('change', changeOpenCardColor);
 document.querySelector("input#foundCardColor").addEventListener('change', changeFoundCardColor);
 document.querySelector("select#cardPicture").addEventListener('change', changeOpenCardSymbolsAndResetBoard);
-document.querySelector('button#logout').addEventListener('click', logout);
+document.querySelector('button#smallLogout').addEventListener('click', logout);
+document.querySelector('button#largeLogout').addEventListener('click', logout);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
 
-document.querySelector('#logout').style.display = 'none';
+document.querySelector('#smallLogout').style.display = 'none';
+document.querySelector('#largeLogout').style.display = 'none';
 //If user is not logged in, show login button
 if(!localStorage.getItem('token')) {
-    document.querySelector('#loginAndRegister').style.display = 'block';
-    document.querySelector('#logout').style.display = 'none';
+    document.querySelector('#smallLoginAndRegister').style.display = 'block';
+    document.querySelector('#largeLoginAndRegister').style.display = 'block';
+    document.querySelector('#smallLogout').style.display = 'none';
+    document.querySelector('#largeLogout').style.display = 'none';
 } else {
-    document.querySelector('#logout').style.display = 'block';
+    document.querySelector('#smallLogout').style.display = 'block';
+    document.querySelector('#largeLogout').style.display = 'block';
 }

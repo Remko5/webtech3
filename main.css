@@ -4,7 +4,7 @@
     --found: #722c80;
   }
 
-#loginAndRegister {
+#largeLoginAndRegister, #smallLoginAndRegister {
     display: none;
 }
 
@@ -88,7 +88,7 @@ div.gameBoard > div > img {
     max-height: 100%;
 }
 
-@media (min-width: 481px){
+@media (min-width: 481px){    
     div.smallNewGame {
         height: 1em;
     }
@@ -99,6 +99,10 @@ div.gameBoard > div > img {
 }
 
 @media (min-width: 769px){
+    html {
+        overflow: hidden;
+    }
+
     div.topInfo {
         display: flex;
         align-items: flex-end;
@@ -144,6 +148,8 @@ div.gameBoard > div > img {
 
     div.extraInfo {
         overflow: hidden;
+        margin-top: -3em;
+        margin-bottom: -3em;
     }
     
     div.gameBoardPosition {
@@ -156,6 +162,11 @@ div.gameBoard > div > img {
 }
 
 @media (min-width: 1025px) {
+
+    div.extraInfo {
+        margin-top: 0px;
+    }
+
     div.gameBoardSize6 {
         grid: repeat(6, 12%) / auto-flow 16%;
     }
