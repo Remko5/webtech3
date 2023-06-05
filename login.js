@@ -1,3 +1,7 @@
+if(localStorage.getItem('token') != null){
+    window.location.href = '/memory.html';
+}
+
 async function login() {
     const body = new FormData(document.querySelector('form'));
     const plainFormData = Object.fromEntries(body.entries());

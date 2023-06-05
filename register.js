@@ -1,3 +1,7 @@
+if(localStorage.getItem('token') != null){
+    window.location.href = '/memory.html';
+}
+
 //Get inputs from the DOM
 function register() {
 
