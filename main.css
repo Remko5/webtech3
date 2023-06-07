@@ -4,10 +4,6 @@
     --found: #722c80;
   }
 
-#largeLoginAndRegister, #smallLoginAndRegister {
-    display: none;
-}
-
 div.smallNewGame {
     height: 3em;
     margin: 1em;
@@ -69,18 +65,6 @@ div.extraInfo > div {
     padding-bottom: 1em;
 }
 
-div.color-inline {
-    display: flex;
-}
-
-div.color-inline > label, div.color-inline > input {
-    margin-right: 5px;
-    height: 27px;
-    width: 9em; 
-    display: flex;
-    align-items: center;
-}
-
 div.gameBoard > div > img {
     min-width: 100%;
     min-height: 100%;
@@ -130,6 +114,14 @@ div.gameBoard > div > img {
         padding: initial;
     }
 
+    div.flex-loggedin {
+        display: flex;
+    }
+
+    div.flex-loggedin > button {
+        margin-right: 0.5em;
+    }
+
     div.gameBoardSize6 {
         grid: repeat(6, 12%) / auto-flow 17%;
     }
@@ -148,8 +140,7 @@ div.gameBoard > div > img {
 
     div.extraInfo {
         overflow: hidden;
-        margin-top: -3em;
-        margin-bottom: -3em;
+        margin-top: -4.1em;
     }
     
     div.gameBoardPosition {

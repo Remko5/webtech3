@@ -4,14 +4,18 @@
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1" />
     <title>Memory</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="share.css">
 </head>
 <body>
 <div class="smallNewGame">
-    <div id="smallLoginAndRegister">
+    <div class="hide" id="smallLoginAndRegister">
         <a href="login.html">Inloggen</a>
         <a href="register.html">Registereren</a>
     </div>
-    <button id="smallLogout">Uitloggen</button>
+    <div class="hide" id="smallLoggedIn">
+        <button id="smallLogout">Uitloggen</button>
+        <a href="preference.html"> voorkeuren veranderen</a>
+    </div>
 </div>
 
     <div class="topInfo">
@@ -48,11 +52,14 @@
     </div>
     <div class="extraInfo" role="extra info sectie" aria-label="extra info sectie">
         <div class="largeNewGame">
-            <div id="largeLoginAndRegister">
+            <div class="hide" id="largeLoginAndRegister">
                 <a href="login.html">Inloggen</a>
                 <a href="register.html">Registereren</a>
             </div>
-            <button id="largeLogout">Uitloggen</button>
+            <div class="hide" id="largeLoggedIn">
+                <button id="largeLogout">Uitloggen</button>
+                <a href="preference.html"> voorkeuren veranderen</a>
+            </div>
         </div>
         <b>Top vijf</b>
         <ol>
@@ -114,5 +121,6 @@
         </div>
     </div>
 </body>
+<script src="jwt.js"></script>
 <script src="index.js"></script>
 </html>
