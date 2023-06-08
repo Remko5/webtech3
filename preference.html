@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="preference.css">
+    <link rel="stylesheet" href="share.css">
+    <title>Voorkeuren</title>
+</head>
+<body>
+    <a href="/memory.html">terug</a>
+<h2>Voorkeuren</h2>
+
+<form id="preferencesForm" method="post">
+    <div class="container">
+        <div>
+            <label for="api">Afbeelding op kaarten:</label>
+            <select name="api" id="cardPicture" aria-label="Blijf letters gebruiken voor toegankelijkheid">
+                <option value="letter">Letters</option>
+                <option value="dog">Honden</option>
+                <option value="lorem">Lorem Picsum</option>
+              </select>
+        </div>
+        <div class="color-inline">
+            <label for="color_closed">Kaart kleur</label>
+            <input type="color" id="standardCardColor" name="color_closed" value="#89f357">
+        </div>
+        <div class="color-inline">
+            <label for="color_found">Gevonden kaart kleur</label>
+            <input type="color" id="foundCardColor" name="color_found" value="#722c80">
+        </div>
+        <div>
+        <button type="button" id="updatePreferences">Wijzig Voorkeuren</button>
+        </div>
+    </div>
+    <p id="colorUpdated" class="hide">Kleur voorkeuren gewijzigd!</p>
+</form>
+<form id="emailForm" method="post">
+    <div class="container">
+        <div>
+            <label for="email"><b>E-mailadres:</b></label>
+            <input type="email" placeholder="E-mailadres" name="email" required id="email">
+        </div>
+        <div>
+        <button type="button" id="updateEmail">Wijzig Email</button>
+        </div>
+    </div>
+</form>
+<p id="invalidCredentials" class="hide">Ongeldige e-mailadres.</p>
+<p id="emailUpdated" class="hide">Email gewijzigd!</p>
+</body>
+<script src="jwt.js"></script>
+<script src="preference.js"></script>
+</html>

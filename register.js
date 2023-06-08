@@ -3,7 +3,7 @@ if(localStorage.getItem('token') != null){
 }
 
 //Get inputs from the DOM
-function register() {
+async function register() {
 
     //Validate input before POSTing
     if(document.querySelector('form').checkValidity()) {
@@ -12,7 +12,7 @@ function register() {
         const plainFormData = Object.fromEntries(body.entries());
         let works = JSON.stringify(plainFormData);
 
-        fetch('http://localhost:8000/register', {
+        await fetch('http://localhost:8000/register', {
             method: 'POST',
             mode: 'cors',
             credentials: 'same-origin',

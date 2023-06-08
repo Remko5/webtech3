@@ -320,6 +320,10 @@ document.querySelector('#smallLogout').style.display = 'none';
 document.querySelector('#largeLogout').style.display = 'none';
 //If user is not logged in, show login button
 if(!localStorage.getItem('token')) {
+    document.querySelector('#smallLoginAndRegister').classList.remove('hide');
+    document.querySelector('#largeLoginAndRegister').classList.remove('hide');
+    document.querySelector('#smallLoggedIn').classList.add('hide');
+    document.querySelector('#largeLoggedIn').classList.add('hide');
 
     //Logged out, show login and register links
     document.querySelector('#smallLoginAndRegister').style.display = 'block';
@@ -329,6 +333,37 @@ if(!localStorage.getItem('token')) {
     document.querySelector('#smallLogout').style.display = 'none';
     document.querySelector('#largeLogout').style.display = 'none';
 } else {
+    document.querySelector('#smallLoggedIn').classList.remove('hide');
+    document.querySelector('#largeLoggedIn').classList.remove('hide');
+
+    let token = localStorage.getItem('token');
+    let id = parseJwt(token).sub;
+
+    fetch(`http://localhost:8000/api/player/${id}/preferences`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": "Bearer " + token
+            }
+        }
+    )
+    .then(res => res.json())
+    .then(preferences => {
+        document.querySelector('input#standardCardColor').value = preferences.color_closed;
+        document.querySelector('input#foundCardColor').value = preferences.color_found;
+
+        let colors = document.querySelector(":root");
+        colors.style.setProperty('--standard', preferences.color_closed);
+        colors.style.setProperty('--found', preferences.color_found);
+
+        if(preferences.preferred_api != 'letter') {
+            let cardPicture = document.querySelector('select#cardPicture');
+            cardPicture.value = preferences.preferred_api;
+            changeOpenCardSymbolsAndResetBoard({target: cardPicture});
+        }
+    });
 
     //Logged in, show logout button
     document.querySelector('#smallLogout').style.display = 'block';
