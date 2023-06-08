@@ -268,6 +268,40 @@ function logout() {
     location.reload();
 }
 
+function getPlayerScores() {
+    let playerScoresElement = document.querySelector('#playerScores')
+    let scores = fetch('http://localhost:8000/scores', {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+    })
+        .then(res => res.json())
+        .then(json => {
+            //Sort on top 5
+            json.sort((a, b) => b.score - a.score);
+
+            //Trim the list down to the top 5
+            json = json.slice(-5, json.length)
+            json.forEach(player => playerScoresElement.innerHTML += `<li>${player.username}: ${player.score}</li>`);
+        })
+}
+
+function checkTokenValidity(token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    let expireDate = new Date(JSON.parse(jsonPayload).exp * 1000);
+    if(expireDate < Date.now()) {
+        //Token expired, redirect to login
+        localStorage.removeItem('token')
+        alert('Uw sessie is verlopen. Log opnieuw in')
+        window.location = '/login.html'
+    }
+}
+
 generateBoard(6);
 document.querySelector("select#karakterSmallScreen").addEventListener('change', changeCharacterSmallScreen);
 document.querySelector("select#karakterLargeScreen").addEventListener('change', changeCharacterLargeScreen);
@@ -282,16 +316,26 @@ document.querySelector('button#largeLogout').addEventListener('click', logout);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
 
+document.querySelector('#smallLogout').style.display = 'none';
+document.querySelector('#largeLogout').style.display = 'none';
 //If user is not logged in, show login button
 if(!localStorage.getItem('token')) {
     document.querySelector('#smallLoginAndRegister').classList.remove('hide');
     document.querySelector('#largeLoginAndRegister').classList.remove('hide');
     document.querySelector('#smallLoggedIn').classList.add('hide');
     document.querySelector('#largeLoggedIn').classList.add('hide');
+
+    //Logged out, show login and register links
+    document.querySelector('#smallLoginAndRegister').style.display = 'block';
+    document.querySelector('#largeLoginAndRegister').style.display = 'block';
+
+    //Hide logout button
+    document.querySelector('#smallLogout').style.display = 'none';
+    document.querySelector('#largeLogout').style.display = 'none';
 } else {
     document.querySelector('#smallLoggedIn').classList.remove('hide');
     document.querySelector('#largeLoggedIn').classList.remove('hide');
-    
+
     let token = localStorage.getItem('token');
     let id = parseJwt(token).sub;
 
@@ -313,11 +357,27 @@ if(!localStorage.getItem('token')) {
         let colors = document.querySelector(":root");
         colors.style.setProperty('--standard', preferences.color_closed);
         colors.style.setProperty('--found', preferences.color_found);
-        
+
         if(preferences.preferred_api != 'letter') {
             let cardPicture = document.querySelector('select#cardPicture');
             cardPicture.value = preferences.preferred_api;
             changeOpenCardSymbolsAndResetBoard({target: cardPicture});
         }
     });
+
+    //Logged in, show logout button
+    document.querySelector('#smallLogout').style.display = 'block';
+    document.querySelector('#largeLogout').style.display = 'block';
+
+    //Get the top 5 player scores from the backend
+    getPlayerScores();
+
+    //Check for JWT token validity
+
 }
+setInterval(() => {
+    //Check validity of the token if it's set
+    if(localStorage.getItem('token')) {
+        checkTokenValidity(localStorage.getItem('token'));
+    }
+}, 10000)
