@@ -1,5 +1,5 @@
 if(localStorage.getItem('token') != null){
-    window.location.href = '/memory.html';
+    window.location.href = '/index.html';
 }
 
 async function login() {
@@ -28,7 +28,7 @@ async function login() {
         localStorage.setItem('token', json.token)
 
         //redirect to the memory homepage
-        window.location.href = '/memory.html';
+        window.location.href = '/index.html';
 
     }
 

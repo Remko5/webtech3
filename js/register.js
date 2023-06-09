@@ -1,5 +1,5 @@
 if(localStorage.getItem('token') != null){
-    window.location.href = '/memory.html';
+    window.location.href = '/index.html';
 }
 
 //Get inputs from the DOM

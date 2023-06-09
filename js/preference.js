@@ -1,6 +1,6 @@
 let token = localStorage.getItem('token');
 if(token == null){
-    window.location.href = '/memory.html';
+    window.location.href = '/index.html';
 }
 
 if(!tokenIsValid(token)){
@@ -92,7 +92,6 @@ fetch(`http://localhost:8000/api/player/${id}/preferences`, {
 )
 .then(res => res.json())
 .then(preferences => {
-    console.log(preferences);
     document.querySelector('select#cardPicture').value = preferences.preferred_api;
     document.querySelector('input#standardCardColor').value = preferences.color_closed;
     document.querySelector('input#foundCardColor').value = preferences.color_found;
