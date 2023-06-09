@@ -272,7 +272,7 @@ function logout() {
 
 function getPlayerScores() {
     let playerScoresElement = document.querySelector('#playerScores')
-    let scores = fetch('http://localhost:8000/scores', {
+    fetch('http://localhost:8000/scores', {
         method: 'GET',
         mode: 'cors',
         credentials: 'same-origin'
