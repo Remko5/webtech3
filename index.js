@@ -3,6 +3,8 @@ let previousOpenCard = "number::letter";
 let currentOpenCard = "number::letter";
 let useImages = false;
 let foundpairs = 0;
+let token = localStorage.getItem('token');
+let cancelTokenCountdown = false;
 
 function letters() {
     let size = document.querySelector("select#bordGroteSmallScreen").value;
@@ -273,8 +275,7 @@ function getPlayerScores() {
     let scores = fetch('http://localhost:8000/scores', {
         method: 'GET',
         mode: 'cors',
-        credentials: 'same-origin',
-        headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+        credentials: 'same-origin'
     })
         .then(res => res.json())
         .then(json => {
@@ -287,20 +288,125 @@ function getPlayerScores() {
         })
 }
 
-function checkTokenValidity(token) {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    let expireDate = new Date(JSON.parse(jsonPayload).exp * 1000);
+function tokenIsValid() {
+    jsonPayload = parseJwt(token);
+    let expireDate = new Date(jsonPayload.exp * 1000);
     if(expireDate < Date.now()) {
+        return false;
+    }
+    return true;
+}
+
+function checkTokenValidity() {
+    if(!tokenIsValid()) {
+        // Stop checking for invalid token
+        clearInterval(checkTokenInterval);
+        
+        // Clear Token
+        token = null;
+        localStorage.removeItem('token');
+
         //Token expired, redirect to login
-        localStorage.removeItem('token')
-        alert('Uw sessie is verlopen. Log opnieuw in')
-        window.location = '/login.html'
+        expiredTokenMessage();
     }
 }
+
+// https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function expiredTokenMessage() {
+    let count = 9;
+    let smallDiv = document.querySelector('div#smallExpiredToken');
+    let largediv = document.querySelector('div#largeExpiredToken');
+    smallDiv.classList.remove('hide');
+    largediv.classList.remove('hide');
+    let smallMessage = smallDiv.firstChild
+    let largeMessage = largediv.firstChild
+
+    for (let i = 0; i < 11; i++) {
+        if(cancelTokenCountdown){
+            smallDiv.classList.add('hide');
+            largediv.classList.add('hide');
+            return;
+        }
+
+        await sleep(1 * 1000).then(() => {    
+            if(count == -1) {
+                window.location = '/login.html';
+            } else {
+                smallMessage.innerHTML = `Sessie verlopen. Uw gaat naar login in ${count} seconden`;
+                largeMessage.innerHTML = `Sessie verlopen. Uw gaat naar login in ${count} seconden`;
+                count--;
+            }
+        });
+    }
+}
+
+function cancelExpiredTokenCountdown() {
+    cancelTokenCountdown = true;
+}
+
+if(!token) {   
+    //Logged out, show login and register links
+    document.querySelector('#smallLoginAndRegister').classList.remove('hide');
+    document.querySelector('#largeLoginAndRegister').classList.remove('hide');
+    
+    //Hide logout button
+    document.querySelector('#smallLoggedIn').classList.remove('flex-loggedin');
+    document.querySelector('#largeLoggedIn').classList.remove('flex-loggedin');
+    document.querySelector('#smallLoggedIn').classList.add('hide');
+    document.querySelector('#largeLoggedIn').classList.add('hide');
+} else {
+
+    //Logged in, show logout button
+    document.querySelector('#smallLoggedIn').classList.remove('hide');
+    document.querySelector('#largeLoggedIn').classList.remove('hide');
+    document.querySelector('#smallLoggedIn').classList.add('flex-loggedin');
+    document.querySelector('#largeLoggedIn').classList.add('flex-loggedin');
+
+    if(tokenIsValid()) {
+        let id = parseJwt(token).sub;
+
+        fetch(`http://localhost:8000/api/player/${id}/preferences`, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + token
+                }
+            }
+        )
+        .then(res => res.json())
+        .then(preferences => {
+            document.querySelector('input#standardCardColor').value = preferences.color_closed;
+            document.querySelector('input#foundCardColor').value = preferences.color_found;
+
+            let colors = document.querySelector(":root");
+            colors.style.setProperty('--standard', preferences.color_closed);
+            colors.style.setProperty('--found', preferences.color_found);
+
+            if(preferences.preferred_api != 'letter') {
+                let cardPicture = document.querySelector('select#cardPicture');
+                cardPicture.value = preferences.preferred_api;
+                changeOpenCardSymbolsAndResetBoard({target: cardPicture});
+            }
+        });
+    }
+}
+
+//Check for JWT token validity
+let checkTokenInterval = setInterval(() => {
+    //Check validity of the token if it's set
+    if(token) {
+        checkTokenValidity(token);
+    }
+}, 10000);
+
+//Get the top 5 player scores from the backend
+getPlayerScores();
 
 generateBoard(6);
 document.querySelector("select#karakterSmallScreen").addEventListener('change', changeCharacterSmallScreen);
@@ -315,69 +421,5 @@ document.querySelector('button#smallLogout').addEventListener('click', logout);
 document.querySelector('button#largeLogout').addEventListener('click', logout);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
-
-document.querySelector('#smallLogout').style.display = 'none';
-document.querySelector('#largeLogout').style.display = 'none';
-//If user is not logged in, show login button
-if(!localStorage.getItem('token')) {
-    document.querySelector('#smallLoginAndRegister').classList.remove('hide');
-    document.querySelector('#largeLoginAndRegister').classList.remove('hide');
-    document.querySelector('#smallLoggedIn').classList.add('hide');
-    document.querySelector('#largeLoggedIn').classList.add('hide');
-
-    //Logged out, show login and register links
-    document.querySelector('#smallLoginAndRegister').style.display = 'block';
-    document.querySelector('#largeLoginAndRegister').style.display = 'block';
-
-    //Hide logout button
-    document.querySelector('#smallLogout').style.display = 'none';
-    document.querySelector('#largeLogout').style.display = 'none';
-} else {
-    document.querySelector('#smallLoggedIn').classList.remove('hide');
-    document.querySelector('#largeLoggedIn').classList.remove('hide');
-
-    let token = localStorage.getItem('token');
-    let id = parseJwt(token).sub;
-
-    fetch(`http://localhost:8000/api/player/${id}/preferences`, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'same-origin',
-        headers: {
-            "Content-type": "application/json",
-            "Authorization": "Bearer " + token
-            }
-        }
-    )
-    .then(res => res.json())
-    .then(preferences => {
-        document.querySelector('input#standardCardColor').value = preferences.color_closed;
-        document.querySelector('input#foundCardColor').value = preferences.color_found;
-
-        let colors = document.querySelector(":root");
-        colors.style.setProperty('--standard', preferences.color_closed);
-        colors.style.setProperty('--found', preferences.color_found);
-
-        if(preferences.preferred_api != 'letter') {
-            let cardPicture = document.querySelector('select#cardPicture');
-            cardPicture.value = preferences.preferred_api;
-            changeOpenCardSymbolsAndResetBoard({target: cardPicture});
-        }
-    });
-
-    //Logged in, show logout button
-    document.querySelector('#smallLogout').style.display = 'block';
-    document.querySelector('#largeLogout').style.display = 'block';
-
-    //Get the top 5 player scores from the backend
-    getPlayerScores();
-
-    //Check for JWT token validity
-
-}
-setInterval(() => {
-    //Check validity of the token if it's set
-    if(localStorage.getItem('token')) {
-        checkTokenValidity(localStorage.getItem('token'));
-    }
-}, 10000)
+document.querySelector('button#smallExpiredTokenButton').addEventListener('click', cancelExpiredTokenCountdown);
+document.querySelector('button#largeExpiredTokenButton').addEventListener('click', cancelExpiredTokenCountdown); 

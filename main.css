@@ -9,9 +9,21 @@ div.smallNewGame {
     margin: 1em;
 }
 
-div.smallNewGame > div, button {
+div.smallNewGame > div, button#smallStartNewGame {
     float: left;
     margin-bottom: 0.5em;
+    margin-right: 0.5em;
+}
+
+div#smallExpiredToken, div#largeExpiredToken {
+    margin-bottom: 0.5em;
+}
+
+button#largeExpiredTokenButton, button#smallExpiredTokenButton {
+    margin-top: 0.5em;
+}
+
+div#smallExpiredToken > span, div#largeExpiredToken > span {
     margin-right: 0.5em;
 }
 
@@ -73,10 +85,6 @@ div.gameBoard > div > img {
 }
 
 @media (min-width: 481px){    
-    div.smallNewGame {
-        height: 1em;
-    }
-
     div.gameBoard > div {
         font-size: 31px;
     }
@@ -100,7 +108,7 @@ div.gameBoard > div > img {
         padding: 0px;
     }
 
-    div.smallNewGame > div, button {
+    div.smallNewGame > div, button#smallStartNewGame {
         float: none;
         margin-bottom: 0px;
         margin-right: 0px;
@@ -140,7 +148,7 @@ div.gameBoard > div > img {
 
     div.extraInfo {
         overflow: hidden;
-        margin-top: -4.1em;
+        margin-top: -7.5em;
     }
     
     div.gameBoardPosition {
@@ -155,7 +163,7 @@ div.gameBoard > div > img {
 @media (min-width: 1025px) {
 
     div.extraInfo {
-        margin-top: 0px;
+        margin-top: -2em;
     }
 
     div.gameBoardSize6 {

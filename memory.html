@@ -13,8 +13,11 @@
         <a href="register.html">Registereren</a>
     </div>
     <div class="hide" id="smallLoggedIn">
-        <button id="smallLogout">Uitloggen</button>
-        <a href="preference.html"> voorkeuren veranderen</a>
+        <div class="hide" id="smallExpiredToken"><span>Sessie verlopen. Uw gaat naar login in 10 seconden</span><button id="smallExpiredTokenButton">Annuleer</button></div>
+        <div>
+            <button id="smallLogout">Uitloggen</button>
+            <a href="preference.html"> voorkeuren veranderen</a>
+        </div>
     </div>
 </div>
 
@@ -56,6 +59,7 @@
                 <a href="login.html">Inloggen</a>
                 <a href="register.html">Registereren</a>
             </div>
+            <div class="hide" id="largeExpiredToken"><span>Sessie verlopen. Uw gaat naar login in 10 seconden</span><button id="largeExpiredTokenButton">Annuleer</button></div>
             <div class="hide" id="largeLoggedIn">
                 <button id="largeLogout">Uitloggen</button>
                 <a href="preference.html"> voorkeuren veranderen</a>
