@@ -288,17 +288,8 @@ function getPlayerScores() {
         })
 }
 
-function tokenIsValid() {
-    jsonPayload = parseJwt(token);
-    let expireDate = new Date(jsonPayload.exp * 1000);
-    if(expireDate < Date.now()) {
-        return false;
-    }
-    return true;
-}
-
 function checkTokenValidity() {
-    if(!tokenIsValid()) {
+    if(!tokenIsValid(token)) {
         // Stop checking for invalid token
         clearInterval(checkTokenInterval);
         
@@ -366,7 +357,7 @@ if(!token) {
     document.querySelector('#smallLoggedIn').classList.add('flex-loggedin');
     document.querySelector('#largeLoggedIn').classList.add('flex-loggedin');
 
-    if(tokenIsValid()) {
+    if(tokenIsValid(token)) {
         let id = parseJwt(token).sub;
 
         fetch(`http://localhost:8000/api/player/${id}/preferences`, {

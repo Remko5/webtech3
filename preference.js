@@ -2,10 +2,19 @@ let token = localStorage.getItem('token');
 if(token == null){
     window.location.href = '/memory.html';
 }
+
+if(!tokenIsValid(token)){
+    sendToLogin();
+}
+
 let id = parseJwt(token).sub;
 
 //Get inputs from the DOM
 async function updatePreferences() {
+        if(!tokenIsValid(token)){
+            sendToLogin();
+        }
+
         document.querySelector('p#colorUpdated').classList.add('hide');
         
         const body = new FormData(document.querySelector('#preferencesForm'));
@@ -25,7 +34,11 @@ async function updatePreferences() {
 }
 
 async function updateEmail() {
-    //Validate input before PATCHing
+    if(!tokenIsValid(token)){
+        sendToLogin();
+    }
+
+    //Validate input before PUTing
     if(document.querySelector('#emailForm').checkValidity()) {
         document.querySelector('#invalidCredentials').classList.add('hide');
         document.querySelector('p#emailUpdated').classList.add('hide')
@@ -49,15 +62,10 @@ async function updateEmail() {
     }
 }
 
-document.getElementById('updatePreferences').addEventListener('click', evt => {
-    evt.preventDefault();
-    updatePreferences();
-});
-
-document.getElementById('updateEmail').addEventListener('click', evt =>{
-    evt.preventDefault();
-    updateEmail();
-})
+function sendToLogin() {
+    localStorage.removeItem('token');
+    window.location.href = '/login.html';
+}
 
 fetch(`http://localhost:8000/api/player/${id}/email`, {
     method: 'GET',
@@ -88,4 +96,14 @@ fetch(`http://localhost:8000/api/player/${id}/preferences`, {
     document.querySelector('select#cardPicture').value = preferences.preferred_api;
     document.querySelector('input#standardCardColor').value = preferences.color_closed;
     document.querySelector('input#foundCardColor').value = preferences.color_found;
+});
+
+document.getElementById('updatePreferences').addEventListener('click', evt => {
+    evt.preventDefault();
+    updatePreferences();
+});
+
+document.getElementById('updateEmail').addEventListener('click', evt =>{
+    evt.preventDefault();
+    updateEmail();
 });

@@ -8,3 +8,12 @@ function parseJwt (token) {
 
     return JSON.parse(jsonPayload);
 }
+
+function tokenIsValid(token) {
+    jsonPayload = parseJwt(token);
+    let expireDate = new Date(jsonPayload.exp * 1000);
+    if(expireDate < Date.now()) {
+        return false;
+    }
+    return true;
+}
