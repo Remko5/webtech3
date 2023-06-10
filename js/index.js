@@ -5,6 +5,8 @@ let useImages = false;
 let foundpairs = 0;
 let token = localStorage.getItem('token');
 let cancelTokenCountdown = false;
+let resetTimer = false;
+let winner = false;
 
 function letters() {
     let size = document.querySelector("select#bordGroteSmallScreen").value;
@@ -72,6 +74,7 @@ function showCard(number) {
     if(openCardLetter == letter && openCardElement.classList.contains("open")){
         foundPair(card, openCardElement);
         if(allPairFound()) {
+            winner = true;
             showWinMessage();
         }
     }
@@ -130,6 +133,7 @@ function removeWinMessage() {
 
 function generateBoard(size) {
     foundpairs = 0;
+    winner = false;
     document.querySelector("span#foundPairs").innerHTML = foundpairs;
     let gameboard = document.querySelector("div.gameBoard");
     gameboard.textContent = "";
@@ -137,6 +141,7 @@ function generateBoard(size) {
     let cards = generateHtmlCards(size);
     addBoard(cards, gameboard);
     removeWinMessage();
+    startGameTimer();
 }
 
 function generateBoardSmallScreen(e) {
@@ -216,6 +221,7 @@ async function changeOpenCardSymbolsAndResetBoard(e) {
     if(picture == 'letter'){
         useImages = false;
         openCardSymbols = letters();
+        resetTimerFunction();
         generateBoard(boardSize);
         return;
     }
@@ -239,6 +245,7 @@ async function changeOpenCardSymbolsAndResetBoard(e) {
         default:
             break;
     }
+    resetTimerFunction();
     generateBoard(boardSize);
 }
 
@@ -337,6 +344,33 @@ async function expiredTokenMessage() {
 
 function cancelExpiredTokenCountdown() {
     cancelTokenCountdown = true;
+}
+
+async function startGameTimer() {
+    let timer = document.querySelector('progress#gameTimer');
+    timer.value = 300;
+    timer.ariaLabel = `${timer.value} seconden`;
+    for (let i = 0; i < 300; i++) {
+        if(resetTimer) {
+            resetTimer = false;
+            return;
+        }
+
+        if(winner){
+            return;
+        }
+
+        await sleep(1000).then(() => {
+            timer.value = timer.value - 1;
+            timer.ariaLabel = `${timer.value} seconden`;
+        });
+    }
+}
+
+function resetTimerFunction() {
+    if(!winner) {
+        resetTimer = true;
+    }
 }
 
 if(!token) {   
