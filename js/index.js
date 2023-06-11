@@ -451,10 +451,12 @@ function setVerlopenTimeInterval() {
 
 function setGameTimerBarInterval() {
     let timer = document.querySelector('progress#gameTimer');
+    let noPointsP = document.querySelector('p#noPoints');
+    noPointsP.classList.add('hide');
     timer.value = 300;
     timer.ariaLabel = `${timer.value} seconden`;
     if(gameTimerBarInterval == null){
-        gameTimerBarInterval = setInterval(() => {startGameTimerBar(timer, document.querySelector('p#noPoints'))}, 1000);
+        gameTimerBarInterval = setInterval(() => {startGameTimerBar(timer, noPointsP)}, 1000);
     }
 }
 
