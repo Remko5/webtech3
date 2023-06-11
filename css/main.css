@@ -92,6 +92,7 @@ div.gameBoard > div > img {
 
 @media (min-width: 769px){
     html {
+        margin-top: -1.3em;
         overflow: hidden;
     }
 

@@ -22,9 +22,10 @@
 </div>
 
     <div class="topInfo">
-        <div>
+        <div id="topInfoStats">
             <h2>Javascript memory</h2>
-            <p>verlopen tijd: 5 seconden</p>
+            <p>verlopen tijd: <span id="verlopenTimer">0</span> seconden.</p>
+            <p id="noPoints" class="hide">Tijd verlopen, je krijgt geen punten meer.</p>
             <p>aantal gevonden paren: <span id="foundPairs"></span></p>
             <p>resterende tijd:</p>
             <progress id="gameTimer" value="300" max="300" aria-label="300 seconden"></progress>

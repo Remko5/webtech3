@@ -4,9 +4,15 @@ let currentOpenCard = "number::letter";
 let useImages = false;
 let foundpairs = 0;
 let token = localStorage.getItem('token');
+let expiredTokenInterval = null;
+let expiredTokenCountdown = 10;
 let cancelTokenCountdown = false;
 let resetTimer = false;
 let winner = false;
+let time = 0;
+let gameTimerBarInterval = null;
+let verlopenTimeInterval = null;
+let timeSyncReady = false;
 
 function letters() {
     let size = document.querySelector("select#bordGroteSmallScreen").value;
@@ -309,36 +315,31 @@ function checkTokenValidity() {
     }
 }
 
-// https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function expiredTokenMessage() {
+    let smallDiv = document.querySelector('div#smallExpiredToken');
+    let largeDiv = document.querySelector('div#largeExpiredToken');
+    smallDiv.classList.remove('hide');
+    largeDiv.classList.remove('hide');
+    let smallMessage = smallDiv.firstChild
+    let largeMessage = largeDiv.firstChild
+
+    expiredTokenInterval = setInterval(() => {showExpiredTokenMessage(smallDiv, largeDiv, smallMessage, largeMessage)}, 1000);
 }
 
-async function expiredTokenMessage() {
-    let count = 9;
-    let smallDiv = document.querySelector('div#smallExpiredToken');
-    let largediv = document.querySelector('div#largeExpiredToken');
-    smallDiv.classList.remove('hide');
-    largediv.classList.remove('hide');
-    let smallMessage = smallDiv.firstChild
-    let largeMessage = largediv.firstChild
+function showExpiredTokenMessage(smallDiv, largeDiv, smallMessage, largeMessage) {
+    if(cancelTokenCountdown){
+        smallDiv.classList.add('hide');
+        largeDiv.classList.add('hide');
+        clearInterval(expiredTokenInterval);
+        return;
+    }
 
-    for (let i = 0; i < 11; i++) {
-        if(cancelTokenCountdown){
-            smallDiv.classList.add('hide');
-            largediv.classList.add('hide');
-            return;
-        }
-
-        await sleep(1 * 1000).then(() => {    
-            if(count == -1) {
-                window.location = '/login.html';
-            } else {
-                smallMessage.innerHTML = `Sessie verlopen. Uw gaat naar login in ${count} seconden`;
-                largeMessage.innerHTML = `Sessie verlopen. Uw gaat naar login in ${count} seconden`;
-                count--;
-            }
-        });
+    if(expiredTokenCountdown == -1) {
+        window.location = '/login.html';
+    } else {
+        smallMessage.innerHTML = `Sessie verlopen. Uw gaat naar login in ${expiredTokenCountdown} seconden`;
+        largeMessage.innerHTML = `Sessie verlopen. Uw gaat naar login in ${expiredTokenCountdown} seconden`;
+        expiredTokenCountdown--;
     }
 }
 
@@ -346,25 +347,40 @@ function cancelExpiredTokenCountdown() {
     cancelTokenCountdown = true;
 }
 
-async function startGameTimer() {
-    let timer = document.querySelector('progress#gameTimer');
-    timer.value = 300;
+function startGameTimer() {
+    timeSyncReady = false;
+    setVerlopenTimeInterval();
+    setGameTimerBarInterval();
+    timeSyncReady = true;
+}
+
+function startGameTimerBar(timer, noPointsP) {
+    timer.value = timer.value - 1;
     timer.ariaLabel = `${timer.value} seconden`;
-    for (let i = 0; i < 300; i++) {
-        if(resetTimer) {
-            resetTimer = false;
-            return;
-        }
 
-        if(winner){
-            return;
-        }
-
-        await sleep(1000).then(() => {
-            timer.value = timer.value - 1;
-            timer.ariaLabel = `${timer.value} seconden`;
-        });
+    if(resetTimer) {
+        resetTimer = false;
+        return;
     }
+
+    if(winner){
+        clearInterval(gameTimerBarInterval);
+        clearInterval(verlopenTimeInterval);
+        gameTimerBarInterval = null;
+        verlopenTimeInterval = null;
+        return;
+    }
+
+    if(timer.value == 0){
+        clearInterval(gameTimerBarInterval);
+        gameTimerBarInterval = null;
+        noPointsP.classList.remove('hide');
+    }
+}
+
+function verlopenTime(verlopenTimer) {
+    time++;
+    verlopenTimer.innerHTML = time;
 }
 
 function resetTimerFunction() {
@@ -419,6 +435,26 @@ if(!token) {
                 changeOpenCardSymbolsAndResetBoard({target: cardPicture});
             }
         });
+    }
+}
+
+function setVerlopenTimeInterval() {
+    let timer = document.querySelector('span#verlopenTimer')
+    timer.innerHTML = '0'
+    time = 0;
+    if(verlopenTimeInterval == null){
+        verlopenTimeInterval = setInterval(() => {
+            verlopenTime(timer);
+        }, 1000);
+    }
+}
+
+function setGameTimerBarInterval() {
+    let timer = document.querySelector('progress#gameTimer');
+    timer.value = 300;
+    timer.ariaLabel = `${timer.value} seconden`;
+    if(gameTimerBarInterval == null){
+        gameTimerBarInterval = setInterval(() => {startGameTimerBar(timer, document.querySelector('p#noPoints'))}, 1000);
     }
 }
 
