@@ -389,6 +389,25 @@ function resetTimerFunction() {
     }
 }
 
+function isAdmin(token) {
+    return parseJwt(token).roles.includes("ROLE_ADMIN");
+}
+
+// https://stackoverflow.com/questions/75608166/how-to-redirect-to-another-website-and-send-the-jwt-as-bearer-token-as-well-usin
+function showAdminPanel(e) {
+    let url = "http://localhost:4200?t="+token;
+    fetch(url, {
+        method: 'GET',
+        mode: 'no-cors'
+        })
+      .then(() => {
+        window.location.href = url;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+}
+
 if(!token) {   
     //Logged out, show login and register links
     document.querySelector('#smallLoginAndRegister').classList.remove('hide');
@@ -408,6 +427,11 @@ if(!token) {
     document.querySelector('#largeLoggedIn').classList.add('flex-loggedin');
 
     if(tokenIsValid(token)) {
+        if(isAdmin(token)) {
+            document.querySelector('div#smallAdmin').classList.remove('hide');
+            document.querySelector('div#largeAdmin').classList.remove('hide');
+        }
+
         let id = parseJwt(token).sub;
 
         fetch(`http://localhost:8000/api/player/${id}/preferences`, {
@@ -485,4 +509,6 @@ document.querySelector('button#largeLogout').addEventListener('click', logout);
 document.querySelector('button#smallStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#largeStartNewGame').addEventListener('click', startNewGame);
 document.querySelector('button#smallExpiredTokenButton').addEventListener('click', cancelExpiredTokenCountdown);
-document.querySelector('button#largeExpiredTokenButton').addEventListener('click', cancelExpiredTokenCountdown); 
+document.querySelector('button#largeExpiredTokenButton').addEventListener('click', cancelExpiredTokenCountdown);
+document.querySelector('div#smallAdmin').addEventListener('click', showAdminPanel)
+document.querySelector('div#largeAdmin').addEventListener('click', showAdminPanel)

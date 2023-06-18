@@ -5,7 +5,7 @@
   }
 
 div.smallNewGame {
-    height: 3em;
+    height: 4.5em;
     margin: 1em;
 }
 
@@ -15,7 +15,7 @@ div.smallNewGame > div, button#smallStartNewGame {
     margin-right: 0.5em;
 }
 
-div#smallExpiredToken, div#largeExpiredToken {
+div#smallExpiredToken, div#largeExpiredToken, div#smallAdmin, div#largeAdmin {
     margin-bottom: 0.5em;
 }
 
@@ -149,7 +149,7 @@ div.gameBoard > div > img {
 
     div.extraInfo {
         overflow: hidden;
-        margin-top: -8.7em;
+        margin-top: -9.2em;
     }
     
     div.gameBoardPosition {
@@ -164,7 +164,7 @@ div.gameBoard > div > img {
 @media (min-width: 1025px) {
 
     div.extraInfo {
-        margin-top: -2em;
+        margin-top: -3.37em;
     }
 
     div.gameBoardSize6 {

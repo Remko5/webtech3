@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1" />
+    <title>Inloggen</title>
+</head>
+<body>
+<h2>Inloggen</h2>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <div>
+      <label for="username">username </label>
+      <input formControlName="username" id="username" type="text" placeholder="Gebruikersnaam">
+      <span *ngIf="
+      loginForm.get('username')?.errors && 
+      loginForm.get('username')?.hasError('required') && 
+      loginForm.get('username')?.touched">
+        Gebruikersnaam is verplicht.
+      </span>
+    </div>
+
+    <div>
+      <label for="password">Password </label>
+      <input formControlName="password" id="password" type="password" placeholder="Wachtwoord">
+      <span *ngIf="
+      loginForm.get('password')?.errors && 
+      loginForm.get('password')?.hasError('required') &&
+      loginForm.get('password')?.touched">
+        Wachtwoord is verplicht.
+      </span>
+    </div>
+
+    <button type="submit">Log In</button>
+  </form>
+</body>
+</html>
