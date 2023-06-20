@@ -14,7 +14,12 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div *ngIf="this.cookieService.check('token') == true"><button (click)="logout()">Uitloggen</button></div>
-    <div *ngIf="this.cookieService.check('token') == false"><app-login></app-login></div>
+    <div *ngIf="isLoggedIn()">
+      <button (click)="logout()">Uitloggen</button>
+      <app-valid-account-check></app-valid-account-check>
+    </div>
+    <div *ngIf="!isLoggedIn()">
+      <app-login></app-login>
+    </div>
   </body>
 </html>

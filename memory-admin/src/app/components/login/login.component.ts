@@ -25,10 +25,6 @@ export class LoginComponent {
     let username: string = formValue.username!;
     let password: string = formValue.password!;
 
-    // voor debuggen
-    //let username = "Henk";
-    //let password = "henk";
-
     this.authService.login(username, password);
   }
 }

@@ -12,5 +12,5 @@ interface AantalSpelersInterface {
 
 interface ApiUseInterface {
     api: string
-    aantal: 1
+    aantal: number
 }

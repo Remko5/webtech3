@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
-import { AggregateInterface } from 'src/app/interfaces/AggregateInterface';
+
 
 @Component({
   selector: 'app-root',
@@ -10,20 +9,27 @@ import { AggregateInterface } from 'src/app/interfaces/AggregateInterface';
 })
 export class AppComponent {
   title = 'memory-admin';
-  t: string | null = null;
 
-  constructor(public cookieService: CookieService) {}
+  constructor(private cookieService: CookieService) {}
 
   ngOnInit(): void {
-    this.t = new URL(window.location.href).searchParams.get("t");
-    if(this.t != null){
-      this.cookieService.set('token', this.t);
+    this.autoLogIn();
+  }
+
+  autoLogIn() {
+    let t: string | null = new URL(window.location.href).searchParams.get("t");
+    if(t != null){
+      this.cookieService.set('token', t);
       window.location.href = "http://localhost:4200";
     }
   }
-
+  
   logout() {
     this.cookieService.delete('token'); 
     location.reload();
+  }
+
+  isLoggedIn(){
+    return this.cookieService.check('token');
   }
 }

@@ -1,4 +1,4 @@
 export interface PlayersInterface {
-    username: string,
+    username: string
     email: string
 }

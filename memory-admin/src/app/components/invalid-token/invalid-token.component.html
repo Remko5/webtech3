@@ -1,0 +1,5 @@
+<div *ngIf="token && !token.isValid">
+<p>🤷 Oops, het lijkt erop dat je opniew moet inloggen. 🤷</p>
+{{token.apiErrorMessage.code}}
+{{token.apiErrorMessage.message}}
+</div>

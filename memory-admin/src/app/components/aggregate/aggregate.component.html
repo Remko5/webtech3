@@ -1,0 +1,18 @@
+<p>aggregate works!</p>
+<div *ngIf="aggregate">
+    <div>
+       Aantal spellen: {{aggregate.array[0].aantal_spellen}}
+    </div>
+    <div>
+        Aantal spelers: {{aggregate.array[1].aantal_spelers}}
+    </div>
+    <div *ngFor="let apiUse of aggregate.array[2]">
+        <div *ngIf="apiUse.api == ''">
+            Api: geen
+        </div>
+        <div *ngIf="apiUse.api != ''">
+            Api: {{apiUse.api}}
+        </div>
+        Aantal gebruikers: {{apiUse.aantal}}
+    </div>
+</div>

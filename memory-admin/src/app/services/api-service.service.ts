@@ -7,7 +7,7 @@ import {CookieService} from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiServiceService {
+export class ApiService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
