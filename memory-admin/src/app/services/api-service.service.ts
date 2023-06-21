@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  apiRequest(endpoint: string): Observable<any> {
+  apiRequest(endpoint: string): Observable<Object> {
     const apiUrl: string = "http://localhost:8000/api/admin/" + endpoint;
     const bearerToken: string = this.cookieService.get('token');
 

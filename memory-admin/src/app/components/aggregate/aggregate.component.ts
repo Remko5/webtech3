@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+
 import { AggregateInterface } from 'src/app/interfaces/AggregateInterface';
-import { InvalidTokenInterface } from 'src/app/interfaces/InvalidTokenInterface';
+import { ApiErrorInterface } from 'src/app/interfaces/ApiErrorInterface';
+
 import { ApiService } from 'src/app/services/api-service.service';
 import { ErrorService } from 'src/app/services/error.service';
 
@@ -11,7 +13,7 @@ import { ErrorService } from 'src/app/services/error.service';
 })
 export class AggregateComponent {
   aggregate?: AggregateInterface;
-  @Output() invalidToken = new EventEmitter<InvalidTokenInterface>();
+  @Output() invalidToken = new EventEmitter<ApiErrorInterface>();
 
   constructor(private apiService: ApiService, private errorService: ErrorService) {}
 
@@ -26,7 +28,7 @@ export class AggregateComponent {
         //console.log(this.aggregate.array.forEach(item => console.log(item)))
     }, error => {
       if(error.status == 401){
-        this.invalidToken.emit(this.errorService.generate401ErrorObject(error));
+        this.invalidToken.emit(this.errorService.generateErrorObject(error));
       }
     });
   }

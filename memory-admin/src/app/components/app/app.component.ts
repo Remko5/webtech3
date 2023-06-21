@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AppComponent {
   title = 'memory-admin';
 
-  constructor(private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.autoLogIn();
@@ -18,7 +19,7 @@ export class AppComponent {
 
   autoLogIn() {
     let t: string | null = new URL(window.location.href).searchParams.get("t");
-    if(t != null){
+    if(t != null && this.authService.isAdmin(t)){
       this.cookieService.set('token', t);
       window.location.href = "http://localhost:4200";
     }

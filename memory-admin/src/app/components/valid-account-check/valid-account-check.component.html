@@ -1,8 +1,8 @@
-<div *ngIf="token.isValid">
+<div *ngIf="!token.error">
     <app-aggregate (invalidToken)="showInvalidTokenComponent($event)"></app-aggregate>
-    <app-dates></app-dates>
-    <app-players></app-players>
+    <app-dates (invalidToken)="showInvalidTokenComponent($event)"></app-dates>
+    <app-players (invalidToken)="showInvalidTokenComponent($event)"></app-players>
 </div>
-<div *ngIf="!token.isValid">
-<app-invalid-token [token]="token"></app-invalid-token>
+<div *ngIf="token.error">
+<app-error [error]="token.apiErrorMessage"></app-error>
 </div>

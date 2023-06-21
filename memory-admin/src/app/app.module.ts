@@ -8,8 +8,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { AggregateComponent } from './components/aggregate/aggregate.component';
 import { DatesComponent } from './components/dates/dates.component';
 import { PlayersComponent } from './components/players/players.component';
-import { InvalidTokenComponent } from './components/invalid-token/invalid-token.component';
 import { ValidAccountCheckComponent } from './components/valid-account-check/valid-account-check.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +18,8 @@ import { ValidAccountCheckComponent } from './components/valid-account-check/val
     AggregateComponent,
     DatesComponent,
     PlayersComponent,
-    InvalidTokenComponent,
-    ValidAccountCheckComponent
+    ValidAccountCheckComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

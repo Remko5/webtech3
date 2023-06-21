@@ -34,5 +34,7 @@
 
     <button type="submit">Log In</button>
   </form>
+  <div *ngIf="noAdmin()"><app-error [error]="adminError.apiErrorMessage"></app-error></div>
+  <div *ngIf="hasApiError()"><app-error [error]="apiError.apiErrorMessage"></app-error></div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { InvalidTokenInterface } from 'src/app/interfaces/InvalidTokenInterface';
+
+import { ApiErrorInterface } from 'src/app/interfaces/ApiErrorInterface';
 import { PlayersInterface } from 'src/app/interfaces/PlayersInterface';
+
 import { ApiService } from 'src/app/services/api-service.service';
 import { ErrorService } from 'src/app/services/error.service';
 
@@ -11,7 +13,7 @@ import { ErrorService } from 'src/app/services/error.service';
 })
 export class PlayersComponent {
   players?: Array<PlayersInterface>;
-  @Output() invalidToken = new EventEmitter<InvalidTokenInterface>();
+  @Output() invalidToken = new EventEmitter<ApiErrorInterface>();
 
   constructor(private apiService: ApiService, private errorService: ErrorService) {}
 
@@ -25,7 +27,8 @@ export class PlayersComponent {
         this.players = resp as Array<PlayersInterface>;
     }, error => {
       if(error.status == 401){
-        this.invalidToken.emit(this.errorService.generate401ErrorObject(error));
+        console.log("players");
+        this.invalidToken.emit(this.errorService.generateErrorObject(error));
       }    
   });
   }
