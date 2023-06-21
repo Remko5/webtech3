@@ -29,7 +29,12 @@ export class AuthService {
   }
 
   isAdmin(token: string): boolean {
-    let decodedToken: JwtTokenPayload = jwtDecode<JwtTokenPayload>(token);
+    let decodedToken: JwtTokenPayload;
+    try {
+      decodedToken = jwtDecode<JwtTokenPayload>(token);
+    } catch (error) {
+      return false;
+    }
     return decodedToken.roles.includes(this.admin);
   }
 }
