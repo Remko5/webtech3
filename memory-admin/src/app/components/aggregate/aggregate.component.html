@@ -6,13 +6,12 @@
     <div>
         Aantal spelers: {{aggregate.array[1].aantal_spelers}}
     </div>
-    <div *ngFor="let apiUse of aggregate.array[2]">
-        <div *ngIf="apiUse.api == ''">
-            Api: geen
-        </div>
-        <div *ngIf="apiUse.api != ''">
-            Api: {{apiUse.api}}
-        </div>
-        Aantal gebruikers: {{apiUse.aantal}}
-    </div>
+
+    <canvas *ngIf="showBarChart" baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="[]"
+        [legend]="barChartLegend"
+        [type]="'bar'">
+    </canvas>
 </div>

@@ -10,6 +10,7 @@ import { DatesComponent } from './components/dates/dates.component';
 import { PlayersComponent } from './components/players/players.component';
 import { ValidAccountCheckComponent } from './components/valid-account-check/valid-account-check.component';
 import { ErrorComponent } from './components/error/error.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ErrorComponent } from './components/error/error.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [HttpClientModule, 
               {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
