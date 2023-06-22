@@ -27,7 +27,6 @@ export class DatesComponent {
         this.dates = this.makeDatesObject(resp as Object);
       }, error => {
         if(error.status == 401){
-          console.log("dates");
           this.invalidToken.emit(this.errorService.generateErrorObject(error));
         }
       });

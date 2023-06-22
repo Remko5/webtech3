@@ -11,6 +11,8 @@ import { PlayersComponent } from './components/players/players.component';
 import { ValidAccountCheckComponent } from './components/valid-account-check/valid-account-check.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NgChartsModule } from 'ng2-charts';
+import { TableComponent } from './components/table/table.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { NgChartsModule } from 'ng2-charts';
     DatesComponent,
     PlayersComponent,
     ValidAccountCheckComponent,
-    ErrorComponent
+    ErrorComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    MatTableModule
   ],
   providers: [HttpClientModule, 
               {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}

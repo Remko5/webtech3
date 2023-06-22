@@ -1,4 +1,3 @@
-<p>players works!</p>
 <div *ngIf="players">
-    <div *ngFor="let player of players">Gebruikersnaam: {{player.username}} Email: {{player.email}}</div>
+    <app-table [players]="players"></app-table>
 </div>

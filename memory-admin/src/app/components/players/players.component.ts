@@ -27,7 +27,6 @@ export class PlayersComponent {
         this.players = resp as Array<PlayersInterface>;
     }, error => {
       if(error.status == 401){
-        console.log("players");
         this.invalidToken.emit(this.errorService.generateErrorObject(error));
       }    
   });

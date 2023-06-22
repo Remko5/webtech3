@@ -1,4 +1,3 @@
-<p>dates works!</p>
 <div *ngIf="dates">
-<div *ngFor="let date of dates.array">{{date.date}}: {{date.amountPlayed}}</div>
+    <app-table [dates]="dates.array"></app-table>
 </div>

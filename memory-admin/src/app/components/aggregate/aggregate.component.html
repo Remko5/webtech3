@@ -1,11 +1,5 @@
-<p>aggregate works!</p>
 <div *ngIf="aggregate">
-    <div>
-       Aantal spellen: {{aggregate.array[0].aantal_spellen}}
-    </div>
-    <div>
-        Aantal spelers: {{aggregate.array[1].aantal_spelers}}
-    </div>
+    <app-table [aggregate]="[aggregate.array[0], aggregate.array[1]]"></app-table>
 
     <canvas *ngIf="showBarChart" baseChart
         [data]="barChartData"
