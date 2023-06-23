@@ -6,35 +6,34 @@
     <title>Inloggen</title>
 </head>
 <body>
-<h2>Inloggen</h2>
-
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-
-    <div>
-      <label for="username">username </label>
+<div class="container">
+<!--<div class="card">-->
+  <h1>Inloggen</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <label for="username">Gebruikersnaam</label>
       <input formControlName="username" id="username" type="text" placeholder="Gebruikersnaam">
       <span *ngIf="
-      loginForm.get('username')?.errors && 
-      loginForm.get('username')?.hasError('required') && 
+      loginForm.get('username')?.errors &&
+      loginForm.get('username')?.hasError('required') &&
       loginForm.get('username')?.touched">
         Gebruikersnaam is verplicht.
       </span>
-    </div>
 
-    <div>
-      <label for="password">Password </label>
+      <label for="password">Wachtwoord</label>
       <input formControlName="password" id="password" type="password" placeholder="Wachtwoord">
       <span *ngIf="
-      loginForm.get('password')?.errors && 
+      loginForm.get('password')?.errors &&
       loginForm.get('password')?.hasError('required') &&
       loginForm.get('password')?.touched">
         Wachtwoord is verplicht.
       </span>
-    </div>
+      <button type="submit">Log In</button>
 
-    <button type="submit">Log In</button>
   </form>
+</div>
+<!--</div>-->
   <div *ngIf="noAdmin()"><app-error [error]="adminError.apiErrorMessage"></app-error></div>
   <div *ngIf="hasApiError()"><app-error [error]="apiError.apiErrorMessage"></app-error></div>
+
 </body>
 </html>

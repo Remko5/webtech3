@@ -14,12 +14,20 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div id="backToMemory"><a href="http://localhost:8080">Naar memory</a></div>
+    <div class="navbar">
+      <ul>
+        <li>
+      <a class="btn" href="http://localhost:8080">Naar memory</a>
+        </li>
+        <li>
+      <button *ngIf="isLoggedIn()" class="btn" (click)="logout()">Uitloggen</button>
+        </li>
+      </ul>
+    </div>
     <div *ngIf="isLoggedIn()">
-      <button (click)="logout()">Uitloggen</button>
       <app-valid-account-check></app-valid-account-check>
     </div>
-    <div *ngIf="!isLoggedIn()">
+    <div class="loginComponent" *ngIf="!isLoggedIn()">
       <app-login></app-login>
     </div>
   </body>
