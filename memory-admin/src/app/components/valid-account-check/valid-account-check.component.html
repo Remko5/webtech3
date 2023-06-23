@@ -1,7 +1,28 @@
 <div *ngIf="!token.error">
+      <div class="containerSmall">
+      <app-aggregate (invalidToken)="showInvalidTokenComponent($event)"></app-aggregate>
+
+      <h1>Datums waarop gespeeld is</h1>
+      <app-dates (invalidToken)="showInvalidTokenComponent($event)"></app-dates>
+
+      <h1>Gebruikers</h1>
+      <app-players (invalidToken)="showInvalidTokenComponent($event)"></app-players>
+      </div>
+
+  <div class="containerLarge">
+
+    <div class="grid-item col1">
     <app-aggregate (invalidToken)="showInvalidTokenComponent($event)"></app-aggregate>
+    </div>
+
+    <div class="grid-item col2">
+    <h1>Datums waarop gespeeld is</h1>
     <app-dates (invalidToken)="showInvalidTokenComponent($event)"></app-dates>
+
+    <h1>Gebruikers</h1>
     <app-players (invalidToken)="showInvalidTokenComponent($event)"></app-players>
+    </div>
+  </div>
 </div>
 <div *ngIf="token.error">
 <app-error [error]="token.apiErrorMessage"></app-error>

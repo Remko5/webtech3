@@ -1,6 +1,9 @@
 <div *ngIf="aggregate">
+
+    <h1>Aantal spellen en spelers</h1>
     <app-aggregate-table [aggregate]="[aggregate.array[0], aggregate.array[1]]"></app-aggregate-table>
 
+    <h1>Gebruik van de API</h1>
     <canvas *ngIf="showBarChart" baseChart
         [data]="barChartData"
         [options]="barChartOptions"
