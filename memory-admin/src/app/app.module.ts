@@ -11,8 +11,10 @@ import { PlayersComponent } from './components/players/players.component';
 import { ValidAccountCheckComponent } from './components/valid-account-check/valid-account-check.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NgChartsModule } from 'ng2-charts';
-import { TableComponent } from './components/table/table.component';
 import {MatTableModule} from '@angular/material/table';
+import { AggregateTableComponent } from './components/aggregate-table/aggregate-table.component';
+import { PlayersTableComponent } from './components/players-table/players-table.component';
+import { DatesTableComponent } from './components/dates-table/dates-table.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {MatTableModule} from '@angular/material/table';
     PlayersComponent,
     ValidAccountCheckComponent,
     ErrorComponent,
-    TableComponent
+    AggregateTableComponent,
+    PlayersTableComponent,
+    DatesTableComponent
   ],
   imports: [
     BrowserModule,

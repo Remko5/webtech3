@@ -1,5 +1,5 @@
 <div *ngIf="aggregate">
-    <app-table [aggregate]="[aggregate.array[0], aggregate.array[1]]"></app-table>
+    <app-aggregate-table [aggregate]="[aggregate.array[0], aggregate.array[1]]"></app-aggregate-table>
 
     <canvas *ngIf="showBarChart" baseChart
         [data]="barChartData"

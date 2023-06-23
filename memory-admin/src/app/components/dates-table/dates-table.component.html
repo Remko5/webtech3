@@ -1,0 +1,15 @@
+<table mat-table [dataSource]="dates" class="mat-elevation-z8">
+  
+    <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Datum </th>
+    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="amountPlayed">
+    <th mat-header-cell *matHeaderCellDef> Totaal gespeeld </th>
+    <td mat-cell *matCellDef="let element"> {{element.amountPlayed}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

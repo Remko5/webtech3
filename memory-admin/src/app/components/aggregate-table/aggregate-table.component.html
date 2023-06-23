@@ -1,0 +1,15 @@
+<table mat-table [dataSource]="aggregate" class="mat-elevation-z8">
+  
+    <ng-container matColumnDef="aantal_spellen">
+      <th mat-header-cell *matHeaderCellDef> Aantal spellen </th>
+      <td mat-cell *matCellDef="let element"> {{element.aantal_spellen}} </td>
+    </ng-container>
+      
+    <ng-container matColumnDef="aantal_spelers">
+      <th mat-header-cell *matHeaderCellDef> Aantal spelers </th>
+      <td mat-cell *matCellDef="let element"> {{element.aantal_spelers}} </td>
+    </ng-container>
+      
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
