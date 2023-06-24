@@ -1,3 +1,9 @@
 <div *ngIf="dates">
+    <h1 id="datumsWaaropGespeeldIs">Datums waarop gespeeld is</h1>
+    <div class="visualImpaired">
+        <div>Hier hoor je datums en het totaal aantal gespeelde spellen op die datum.</div>
+        <div *ngFor="let date of dates.array">{{date.date}} {{date.amountPlayed}}</div>
+        <a href="#gebruikers" class="">Naar gebruikers.</a>
+    </div>
     <app-dates-table [dates]="dates.array"></app-dates-table>
 </div>

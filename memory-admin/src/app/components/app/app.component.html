@@ -14,16 +14,16 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="navbar">
+    <nav class="navbar">
       <ul>
         <li>
-      <a class="btn" href="http://localhost:8080">Naar memory</a>
+      <a class="btn" href="http://localhost:8080" aria-label="Een link naar memory pagina">Naar memory</a>
         </li>
         <li>
-      <button *ngIf="isLoggedIn()" class="btn" (click)="logout()">Uitloggen</button>
+      <button *ngIf="isLoggedIn()" class="btn" (click)="logout()" aria-label="Een knop om uit te loggen">Uitloggen</button>
         </li>
       </ul>
-    </div>
+    </nav>
     <div *ngIf="isLoggedIn()">
       <app-valid-account-check></app-valid-account-check>
     </div>

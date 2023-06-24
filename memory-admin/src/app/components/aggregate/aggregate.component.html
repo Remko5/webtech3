@@ -1,9 +1,21 @@
 <div *ngIf="aggregate">
 
-    <h1>Aantal spellen en spelers</h1>
+    <h1 id="aantalSpellenEnSpelers">Aantal spellen en spelers</h1>
+    <div class="visualImpaired">
+        <div>Er zijn in totaal {{aggregate.array[0].aantal_spellen}} spellen en {{aggregate.array[1].aantal_spelers}} spelers.</div>
+        <a href="#gebruikVanDeApi">Naar gebruik van de api.</a>
+    </div>
     <app-aggregate-table [aggregate]="[aggregate.array[0], aggregate.array[1]]"></app-aggregate-table>
 
-    <h1>Gebruik van de API</h1>
+    <h1 id="gebruikVanDeApi">Gebruik van de API</h1>
+    <div class="visualImpaired">
+        <div>Hier hoor je de verschillende api's en hoeveel mensen de api gebruiken.</div>
+        <div *ngFor="let api of aggregate.array[2]">
+            <div *ngIf="api.api != ''">{{api.api}} {{api.aantal}}</div>
+            <div *ngIf="api.api == ''">geen {{api.aantal}}</div>
+        </div>
+        <a href="#datumsWaaropGespeeldIs" >Naar datums waarop gespeeld is.</a>
+    </div>
     <canvas *ngIf="showBarChart" baseChart
         [data]="barChartData"
         [options]="barChartOptions"

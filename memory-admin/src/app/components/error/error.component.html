@@ -1,5 +1,4 @@
-<div *ngIf="error">
-    <p>{{error.customMessage}}</p>
-    {{error.code}}
-    {{error.apiMessage}}
+<div *ngIf="error" class="container">
+    <p aria-live="assertive">{{error.customMessage}}</p>
+    <p aria-live="assertive">{{error.code}} {{error.apiMessage}}</p>
 </div>

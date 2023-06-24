@@ -1,3 +1,9 @@
 <div *ngIf="players">
+    <h1 id="gebruikers">Gebruikers</h1>
+    <div class="visualImpaired">
+        <div>Hier hoor je alle gebruikersnamen en mail adressen van elke geregistreerde speler.</div>
+        <div *ngFor="let player of players">{{player.username}} {{player.email}}</div>
+        <a href="#aantalSpellenEnSpelers">Terug naar Aantal spellen en spelers.</a>
+    </div>
     <app-players-table [players]="players"></app-players-table>
 </div>

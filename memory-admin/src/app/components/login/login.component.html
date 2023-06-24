@@ -11,8 +11,8 @@
   <h1>Inloggen</h1>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
       <label for="username">Gebruikersnaam</label>
-      <input formControlName="username" id="username" type="text" placeholder="Gebruikersnaam">
-      <span *ngIf="
+      <input formControlName="username" id="username" type="text" placeholder="Gebruikersnaam" aria-label="Een input veld voor je gebruikersnaam">
+      <span aria-live="assertive" *ngIf="
       loginForm.get('username')?.errors &&
       loginForm.get('username')?.hasError('required') &&
       loginForm.get('username')?.touched">
@@ -20,20 +20,20 @@
       </span>
 
       <label for="password">Wachtwoord</label>
-      <input formControlName="password" id="password" type="password" placeholder="Wachtwoord">
-      <span *ngIf="
+      <input formControlName="password" id="password" type="password" placeholder="Wachtwoord" aria-label="Een input veld voor je wachtwoord">
+      <span aria-live="assertive" *ngIf="
       loginForm.get('password')?.errors &&
       loginForm.get('password')?.hasError('required') &&
       loginForm.get('password')?.touched">
         Wachtwoord is verplicht.
       </span>
-      <button type="submit">Log In</button>
+      <button type="submit" aria-label="Knop om in te loggen">Log In</button>
 
   </form>
-</div>
-<!--</div>-->
   <div *ngIf="noAdmin()"><app-error [error]="adminError.apiErrorMessage"></app-error></div>
   <div *ngIf="hasApiError()"><app-error [error]="apiError.apiErrorMessage"></app-error></div>
-
+</div>
+<!--</div>-->
+  
 </body>
 </html>

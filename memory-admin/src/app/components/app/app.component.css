@@ -19,6 +19,7 @@
   vertical-align: middle;
   white-space: nowrap;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .navbar {
@@ -44,6 +45,9 @@
 }
 
 @media (min-width: 1024px) {
+  html {
+    overflow: hidden;
+  }
   .navbar {
     display: block;
   }

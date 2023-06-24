@@ -8,7 +8,7 @@ import { ApiErrorInterface } from 'src/app/interfaces/ApiErrorInterface';
 })
 export class ValidAccountCheckComponent {
   token: ApiErrorInterface;
-  customErrorMessage: string = "🤷 Oops, het lijkt erop dat je opniew moet inloggen. 🤷";
+  customErrorMessage: string = "🤷 Oops, het lijkt erop dat je opnieuw moet inloggen. 🤷";
 
   constructor() {
     this.token = new Object as ApiErrorInterface;

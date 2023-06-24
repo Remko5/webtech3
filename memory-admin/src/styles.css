@@ -2,3 +2,19 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* https://www.w3schools.com/accessibility/accessibility_skip_links.php */
+.visualImpaired {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.visualImpaired:focus {
+    position: static;
+    width: auto;
+    height: auto;
+}
